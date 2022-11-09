@@ -27,8 +27,8 @@ namespace BIZ
 
 		public ClassBIZ()
 		{
-			listCustomer = new List<ClassCustomer>();
-			listCountry = new List<ClassCountry>();
+			listCustomer = SetUpListCustomer();
+			 listCountry = SetUpListCountry();
 			listMeat = new List<ClassMeat>();
 			editListMeat = new List<ClassMeat>();
 			apiRates = new ClassApiRates();
@@ -148,7 +148,7 @@ namespace BIZ
 			}
 		}
 
-
+// Metoder der bruges til at hente data fra databasen og API
         public void UpdateListCustomer()
 		{
 
@@ -173,20 +173,32 @@ namespace BIZ
             }
         }
 
-		public void SetUpListCustomer()
-		{
-			listCustomer = CMGDB.GetAllCustomersFromDB();
-		}
-
-		public int SaveNewCustomer()
+		public void SaveNewCustomer()
         {
-            return CMGDB.SaveCustomerInDB(editOrNewCustomer);
+            // Insert the customer in the database
+            editOrNewCustomer.id = CMGDB.SaveCustomerInDB(editOrNewCustomer);
+
+            // Add a copy of the edited customer to the list
+            listCustomer.Add(new ClassCustomer(editOrNewCustomer));
+            // Make sure the newly added customer is selected
+            selectedCustomer = listCustomer.Last();
+            // Update the list by remaking it (doesn't work otherwise)
+            listCustomer = new List<ClassCustomer>(listCustomer);
         }
 
 		public void UpdateCustomer()
 		{
 			CMGDB.UpdateCustomerInDB(editOrNewCustomer);
-		}
+
+            // Find currently selected customer in the list (doesn't work otherwise??) 
+            int index = listCustomer.IndexOf(selectedCustomer);
+            // Replace it with a copy of the newly edited customer
+            listCustomer[index] = new ClassCustomer(editOrNewCustomer);
+            // Make sure the updated customer is still the selected customer
+            selectedCustomer = listCustomer[index];
+            // Update the list by remaking it (doesn't work otherwise)
+            listCustomer = new List<ClassCustomer>(listCustomer);
+        }
 
 		public void SaveSaleInDB()
 		{
@@ -199,9 +211,14 @@ namespace BIZ
 			listMeat[meatIndex] = new ClassMeat(editListMeat[meatIndex]);
         }
 
-        private void SetUpListCountry()
-		{
+        private List<ClassCustomer> SetUpListCustomer()
+        {
+            return CMGDB.GetAllCustomersFromDB();
+        }
 
-		}
-	}
+        private List<ClassCountry> SetUpListCountry()
+		{
+			return new List<ClassCountry>(); //CMGDB.GetAllCountryFromDB();
+        }
+    }
 }

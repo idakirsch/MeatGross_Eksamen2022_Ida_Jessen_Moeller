@@ -162,7 +162,7 @@
                        HorizontalContentAlignment="Right"
                        VerticalAlignment="Bottom" />
                 <Label Grid.Column="1"
-                       Content="{Binding order.orderCustomer.country.valutaCode}"
+                       Content="{Binding order.orderCustomer.country.countryCode}"
                        FontFamily="System"
                        FontWeight="DemiBold"
                        Margin="2"

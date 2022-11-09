@@ -23,14 +23,26 @@ namespace IO
             List<ClassCustomer> listRes = new List<ClassCustomer>();
             try
             {
-                string sqlQuery = "SELECT Customer.Id AS customerId, " +
-                                    "Customer.CompanyName, Customer.Address, " +
-                                    "Customer.ZipCity, Customer.Phone, " +
-                                    "Customer.Mail, Customer.ContactName, " +
-                                    "Customer.Country " +
-                                  "FROM CountryAndRates " +
-                                  "INNER JOIN Customer" +
-                                  "ON CountryAndRates.Id = Customer.Country";
+                string sqlQuery = "SELECT " +
+                                    "Customer.Id AS CustomerId, " + 
+                                    "Customer.CompanyName, " +
+                                    "Customer.Address, " +
+                                    "Customer.ZipCity, " +
+                                    "Customer.Phone, " +
+                                    "Customer.Mail, " +
+                                    "Customer.ContactName, " +
+                                    "CountryAndRates.Id AS CountryId, " +
+                                    "CountryAndRates.CountryCode, " +
+                                    "CountryAndRates.CountryName, " +
+                                    "CountryAndRates.ValutaName, " +
+                                    "CountryAndRates.ValutaRate, " +
+                                    "CountryAndRates.UpdateTime " +
+                                "FROM " +
+                                    "Customer " +
+                                "INNER JOIN " +
+                                    "CountryAndRates " +
+                                "ON " +
+                                    "Customer.Country = CountryAndRates.Id";
 
                 using (DataTable dataTable = DbReturnDataTable(sqlQuery))
                 {
@@ -38,14 +50,19 @@ namespace IO
                     {
                         ClassCustomer customer = new ClassCustomer();
 
-                        customer.id = Convert.ToInt32(row["customerId"]);
+                        customer.id = Convert.ToInt32(row["CustomerId"]);
                         customer.companyName = row["CompanyName"].ToString();
                         customer.address = row["Address"].ToString();
-                        customer.zipCity = row["zipCity"].ToString();
+                        customer.zipCity = row["ZipCity"].ToString();
                         customer.phone = row["Phone"].ToString();
                         customer.mail = row["Mail"].ToString();
                         customer.contactName = row["ContactName"].ToString();
-                        customer.country = (ClassCountry)row["Country"];
+                        customer.country.Id = Convert.ToInt32(row["CountryId"]);
+                        customer.country.countryCode = row["CountryCode"].ToString();
+                        customer.country.countryName = row["CountryName"].ToString();
+                        customer.country.valutaName = row["ValutaName"].ToString();
+                        customer.country.valutaRate = Convert.ToDouble(row["ValutaRate"]);
+                        customer.country.updateTime = Convert.ToDateTime(row["UpdateTime"]);
 
                         listRes.Add(customer);
                     }
@@ -65,13 +82,25 @@ namespace IO
 
         public int SaveCustomerInDB(ClassCustomer inCustomer)
         {
-            string sqlQuery = "INSERT INTO Customer " +
-                                    "(CompanyName, Address, zipCity, " +
-                                    "Phone, Mail, ContactName, Country) " +
+            string sqlQuery = "INSERT INTO " +
+                                "Customer " +
+                                    "(CompanyName, " +
+                                    "Address, " +
+                                    "ZipCity, " +
+                                    "Phone, " +
+                                    "Mail, " +
+                                    "ContactName, " +
+                                    "Country) " +
                                 "VALUES " +
-                                    "(@CompanyName, @Address, @zipCity, " +
-                                    "@Phone, @Mail, @ContactName, @Country) " +
-                                "SELECT SCOPE_IDENTITY()";
+                                    "(@CompanyName, " +
+                                    "@Address, " +
+                                    "@ZipCity, " +
+                                    "@Phone, " +
+                                    "@Mail, " +
+                                    "@ContactName, " +
+                                    "@Country) " +
+                                "SELECT " +
+                                    "SCOPE_IDENTITY()";
 
             return ExecuteCustomerSqlQuery(inCustomer, sqlQuery, false);
         }
@@ -79,11 +108,16 @@ namespace IO
         public int UpdateCustomerInDB(ClassCustomer inCustomer)
         {
             string sqlQuery = "UPDATE Customer " +
-                                "SET CompanyName = @CompanyName, Address = @Address, " +
-                                    "zipCity = @zipCity, Phone = @Phone " +
-                                    "Mail = @Mail, ContactName = @ContactName, " +
+                                "SET " +
+                                    "CompanyName = @CompanyName, " +
+                                    "Address = @Address, " +
+                                    "ZipCity = @zipCity, " +
+                                    "Phone = @Phone " +
+                                    "Mail = @Mail, " +
+                                    "ContactName = @ContactName, " +
                                     "Country = @Country " +
-                                "WHERE Id = @Id";
+                                "WHERE " +
+                                    "Id = @Id";
             return ExecuteCustomerSqlQuery(inCustomer, sqlQuery, true);
         }
 
@@ -91,10 +125,21 @@ namespace IO
 
         public int SaveOrderInDB(ClassOrder inOrder)
         {
-            string sqlQuery = "INSERT INTO Orders " +
-                                "(Customer, Meat, Weight, OrderDate, OrderPriceDKK, OrderPriceValuta) " +
-                              "VALUES " +
-                                "(@Customer, @Meat, @Weight, @OrderDate, @OrderPriceDKK, @OrderPriceValuta)";
+            string sqlQuery = "INSERT INTO " +
+                                "Orders " +
+                                    "(Customer, " +
+                                    "Meat, " +
+                                    "Weight, " +
+                                    "OrderDate, " +
+                                    "OrderPriceDKK, " +
+                                    "OrderPriceValuta) " +
+                                "VALUES " +
+                                    "(@Customer, " +
+                                    "@Meat, " +
+                                    "@Weight, " +
+                                    "@OrderDate, " +
+                                    "@OrderPriceDKK, " +
+                                    "@OrderPriceValuta)";
             return ExecuteOrdersSqlQuery(inOrder, sqlQuery, false);
         }
 
@@ -105,8 +150,12 @@ namespace IO
             List<ClassMeat> listRes = new List<ClassMeat>();
             try
             {
-                string sqlQuery = "SELECT Meat.Id AS MeatId, " +
-                    "Meat.TypeOfMeat, Meat.Stock, Meat.Price, Meat.PriceTimeStamp";
+                string sqlQuery = "SELECT " +
+                                    "Meat.Id AS MeatId, " +
+                                    "Meat.TypeOfMeat, " +
+                                    "Meat.Stock, " +
+                                    "Meat.Price, " +
+                                    "Meat.PriceTimeStamp";
 
                 using (DataTable dataTable = DbReturnDataTable(sqlQuery))
                 {
@@ -137,21 +186,34 @@ namespace IO
 
         public int SaveAllMeatInDB(ClassMeat inMeat)
         {
-            string sqlQuery = "INSERT INTO Meat " +
-                                "(TypeOfMeat, Stock, Price, PriceTimeStamp) " +
-                              "Values " +
-                                "(@TypeOfMeat, @Stock, @Price, @PriceTimeStamp) " +
-                              "SELECT SCOPE_IDENTITY()";
+            string sqlQuery = "INSERT INTO " +
+                                "Meat " +
+                                    "(TypeOfMeat, " +
+                                    "Stock, " +
+                                    "Price, " +
+                                    "PriceTimeStamp) " +
+                                "VALUES " +
+                                    "(@TypeOfMeat, " +
+                                    "@Stock, " +
+                                    "@Price, " +
+                                    "@PriceTimeStamp) " +
+                                "SELECT " +
+                                    "SCOPE_IDENTITY()";
 
             return ExecuteMeatSqlQuery(inMeat, sqlQuery, false);
         }
 
         public int UpdateMeatInDB(ClassMeat inMeat)
         {
-            string sqlQuery = "UPDATE Meat " +
-                                "SET TypeOfMeat = @TypeOfMeat, Stock = @Stock, " +
-                                "Price = @Price, PriceTimeStamp = PriceTimeStamp, " +
-                                "WHERE Id = @Id";
+            string sqlQuery = "UPDATE " +
+                                    "Meat " +
+                                "SET " +
+                                    "TypeOfMeat = @TypeOfMeat, " +
+                                    "Stock = @Stock, " +
+                                    "Price = @Price, " +
+                                    "PriceTimeStamp = PriceTimeStamp, " +
+                                "WHERE " +
+                                "Id = @Id";
             return ExecuteMeatSqlQuery(inMeat, sqlQuery, true);
         }
 
@@ -171,7 +233,7 @@ namespace IO
                     cmd.Parameters.Add("@Phone", SqlDbType.NVarChar).Value = inCustomer.phone;
                     cmd.Parameters.Add("@Mail", SqlDbType.NVarChar).Value = inCustomer.mail;
                     cmd.Parameters.Add("@ContactName", SqlDbType.NVarChar).Value = inCustomer.contactName;
-                    cmd.Parameters.Add("@Country", SqlDbType.NVarChar).Value = inCustomer.country;
+                    cmd.Parameters.Add("@Country", SqlDbType.Int).Value = inCustomer.country.Id;
                 }
             }
             catch (SqlException ex)

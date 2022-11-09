@@ -12,7 +12,7 @@ namespace Repository
         private string _countryName;
         private string _countryCode;
         private string _valutaName;
-        private string _valutaCode;
+        private double _valutaRate;
         private DateTime _updateTime;
 
         public ClassCountry()
@@ -21,7 +21,7 @@ namespace Repository
             countryName = "";
             countryCode = "";
             valutaName = "";
-            valutaCode = "";
+            valutaRate = 0D;
             updateTime = DateTime.Now;
         }
 
@@ -31,20 +31,20 @@ namespace Repository
             countryName = inCountry.countryName;
             countryCode = inCountry.countryCode;
             valutaName = inCountry.valutaName;
-            valutaCode = inCountry.valutaCode;
+            valutaRate = inCountry.valutaRate;
             updateTime = inCountry.updateTime;
         }
 
-        public string valutaCode
+        public double valutaRate
         {
-            get { return _valutaCode; }
+            get { return _valutaRate; }
             set
             {
-                if (_valutaCode != value)
+                if (_valutaRate != value)
                 {
-                    _valutaCode = value;
+                    _valutaRate = value;
                 }
-                Notify("valutaCode");
+                Notify("valutaRate");
             }
         }
         public string valutaName
