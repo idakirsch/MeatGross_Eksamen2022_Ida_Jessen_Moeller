@@ -47,11 +47,11 @@
                       Height="23"
                       Margin="5"
                       VerticalAlignment="Center"
-                      ItemsSource="{Binding }"
+                      ItemsSource="{Binding x}"
                       SelectedValuePath="TypeOfMeat"
                       DisplayMemberPath="TypeOfMeat"
-                      SelectedValue="{Binding }"
-                      SelectedItem="{Binding }" />
+                      SelectedValue="{Binding x}"
+                      SelectedItem="{Binding x}" />
 
 
             <Label Content="Pris pr. kg.:"

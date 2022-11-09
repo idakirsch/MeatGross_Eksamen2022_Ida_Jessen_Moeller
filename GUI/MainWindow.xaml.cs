@@ -35,13 +35,13 @@ namespace GUI
             BIZ = new ClassBIZ();
             MainGrid.DataContext = BIZ;
 
-            UCCostumerEdit = new UserControlCustomerEdit(BIZ, GridLeft);
-            UCCostumer = new UserControlCustomer(BIZ, GridLeft, UCCostumerEdit);
-            UCOrderMeatEdit = new UserControlOrderMeatEdit(BIZ, GridRight);
-            UCOrderMeat = new UserControlOrderMeat(BIZ, GridRight, UCOrderMeatEdit);
+            UCCostumerEdit = new UserControlCustomerEdit(BIZ, LeftGrid);
+            UCCostumer = new UserControlCustomer(BIZ, LeftGrid, UCCostumerEdit);
+            UCOrderMeatEdit = new UserControlOrderMeatEdit(BIZ, RightGrid);
+            UCOrderMeat = new UserControlOrderMeat(BIZ, RightGrid, UCOrderMeatEdit);
 
-            GridLeft.Children.Add(UCCostumer);
-            GridRight.Children.Add(UCOrderMeat);
+            LeftGrid.Children.Add(UCCostumer);
+            RightGrid.Children.Add(UCOrderMeat);
         }
 
         private async void Window_Loaded(object sender, RoutedEventArgs e)
