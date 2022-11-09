@@ -24,6 +24,16 @@ namespace Repository
             priceTimeStamp = DateTime.Now;
             strTimeStamp = "";
         }
+        public ClassMeat(ClassMeat inMeat)
+        {
+            id = inMeat.id;
+            typeOfMeat = inMeat.typeOfMeat;
+            stock = inMeat.stock;
+            price = inMeat.price;
+            priceTimeStamp = inMeat.priceTimeStamp;
+            strTimeStamp = inMeat.strTimeStamp;
+        }
+
         public string strTimeStamp
         {
             get { return _strTimeStamp; }

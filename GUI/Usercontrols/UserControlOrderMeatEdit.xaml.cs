@@ -39,32 +39,32 @@ namespace GUI.Usercontrols
 
         private void SaveGris(object sender, RoutedEventArgs e)
         {
-            BIZ.SaveNewMeatPrice(BIZ.editListMeat[0]);
+            BIZ.SaveNewMeatPrice(0);
         }
 
         private void SaveKalv(object sender, RoutedEventArgs e)
         {
-            BIZ.SaveNewMeatPrice(BIZ.editListMeat[1]);
+            BIZ.SaveNewMeatPrice(1);
         }
 
         private void SaveOkse(object sender, RoutedEventArgs e)
         {
-            BIZ.SaveNewMeatPrice(BIZ.editListMeat[2]);
+            BIZ.SaveNewMeatPrice(2);
         }
 
         private void SaveKylling(object sender, RoutedEventArgs e)
         {
-            BIZ.SaveNewMeatPrice(BIZ.editListMeat[3]);
+            BIZ.SaveNewMeatPrice(3);
         }
 
         private void SaveKalkun(object sender, RoutedEventArgs e)
         {
-            BIZ.SaveNewMeatPrice(BIZ.editListMeat[4]);
+            BIZ.SaveNewMeatPrice(4);
         }
 
         private void SaveHest(object sender, RoutedEventArgs e)
         {
-            BIZ.SaveNewMeatPrice(BIZ.editListMeat[5]);
+            BIZ.SaveNewMeatPrice(5);
         }
     }
 }

@@ -175,7 +175,7 @@ namespace BIZ
 
 		public void SetUpListCustomer()
 		{
-
+			listCustomer = CMGDB.GetAllCustomersFromDB();
 		}
 
 		public int SaveNewCustomer()
@@ -193,9 +193,10 @@ namespace BIZ
 			CMGDB.SaveOrderInDB(order);
 		}
 
-		public void SaveNewMeatPrice(ClassMeat inMeat)
+		public void SaveNewMeatPrice(int meatIndex)
 		{
-            CMGDB.UpdateMeatInDB(inMeat);
+			CMGDB.UpdateMeatInDB(editListMeat[meatIndex]);
+			listMeat[meatIndex] = new ClassMeat(editListMeat[meatIndex]);
         }
 
         private void SetUpListCountry()
