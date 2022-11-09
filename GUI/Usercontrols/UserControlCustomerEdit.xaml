@@ -5,7 +5,8 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:GUI.Usercontrols"
              mc:Ignorable="d" 
-              d:DesignHeight="370" d:DesignWidth="425">
+             d:DesignHeight="370" d:DesignWidth="425"
+             Background="DarkSeaGreen">
 
     <Grid x:Name="MainGrid"
         Background="White">

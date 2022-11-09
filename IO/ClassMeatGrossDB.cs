@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace IO
 {
-    internal class ClassMeatGrossDB
+    public class ClassMeatGrossDB
     {
     }
 }

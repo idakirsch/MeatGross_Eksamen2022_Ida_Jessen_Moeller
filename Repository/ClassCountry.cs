@@ -22,6 +22,7 @@ namespace Repository
             countryCode = "";
             valutaName = "";
             valutaCode = "";
+            updateTime = DateTime.Now;
         }
 
         public ClassCountry(ClassCountry inCountry)
@@ -31,6 +32,7 @@ namespace Repository
             countryCode = inCountry.countryCode;
             valutaName = inCountry.valutaName;
             valutaCode = inCountry.valutaCode;
+            updateTime = inCountry.updateTime;
         }
 
         public string valutaCode
