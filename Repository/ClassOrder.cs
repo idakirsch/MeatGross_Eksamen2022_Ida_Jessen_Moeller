@@ -1,4 +1,5 @@
-﻿using System;
+﻿
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -13,6 +14,7 @@ namespace Repository
         private int _orderWeight;
         private double _orderPriceDKK;
         private double _orderPriceValuta;
+        private string _weight;
         private string _priceDKK;
         private string _priceValuta;
 
@@ -23,10 +25,40 @@ namespace Repository
             orderWeight = 0;
             orderPriceDKK = 0D;
             orderPriceValuta = 0D;
-            priceDKK = "";
-            priceValuta = "";
+            weight = "";
+            priceDKK = "0.00";
+            priceValuta = "0.00";
         }
 
+        public string weight
+        {
+            get { return _weight; }
+            set
+            {
+                if (_weight != value)
+                {
+                    if (value == "")
+                    {
+                        orderWeight = 0;
+                        _weight = value;
+                    }
+                    else if (int.TryParse(value, out int x))
+                    {
+                        if (x > orderMeat.stock)
+                        {
+                            orderWeight = orderMeat.stock;
+                            _weight = orderMeat.stock.ToString();
+                        }
+                        else if (x >= 0)
+                        {
+                            orderWeight = x;
+                            _weight = value;
+                        }
+                    }
+                }
+                Notify("weight");
+            }
+        }
         public string priceValuta
         {
             get { return _priceValuta; }
@@ -83,6 +115,7 @@ namespace Repository
                 if (_orderWeight != value)
                 {
                     _orderWeight = value;
+                    CalculateAllPrices();
                 }
                 Notify("orderWeight");
             }
@@ -95,6 +128,7 @@ namespace Repository
                 if (_orderCustomer != value)
                 {
                     _orderCustomer = value;
+                    weight = "";
                 }
                 Notify("orderCustomer");
             }
@@ -107,14 +141,19 @@ namespace Repository
                 if (_orderMeat != value)
                 {
                     _orderMeat = value;
+                    weight = "";
                 }
                 Notify("orderMeat");
             }
         }
 
-        private void CalculateAllPrices()
+        public void CalculateAllPrices()
         {
+            orderPriceDKK = orderWeight * orderMeat.price;
+            orderPriceValuta = orderPriceDKK * orderCustomer.country.valutaRate;
 
+            priceDKK = orderPriceDKK.ToString("#0.00");
+            priceValuta = orderPriceValuta.ToString("#0.00");
         }
 
     }

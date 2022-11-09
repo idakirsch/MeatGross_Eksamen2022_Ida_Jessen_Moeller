@@ -36,7 +36,11 @@ namespace GUI.Usercontrols
 
         private void buttonEditMeat_Click(object sender, RoutedEventArgs e)
         {
-            BIZ.editListMeat = new List<ClassMeat>(BIZ.listMeat); 
+            // Create new editListMeat
+            BIZ.editListMeat = new List<ClassMeat>();
+            // Add 6 empty elements
+            for (int i = 0; i < 6; i++) BIZ.editListMeat.Add(new ClassMeat());
+
             homeGrid.Children.Add(UCEdit);
             BIZ.isEnabled = false;
         }

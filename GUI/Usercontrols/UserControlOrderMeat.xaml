@@ -105,7 +105,7 @@
                      FontWeight="DemiBold"
                      Margin="24,2,24,2"
                      TextAlignment="Right"
-                     Text="{Binding order.orderWeight, UpdateSourceTrigger=PropertyChanged}"
+                     Text="{Binding order.weight, UpdateSourceTrigger=PropertyChanged}"
                      VerticalAlignment="Top"
                      FontSize="26" />
 

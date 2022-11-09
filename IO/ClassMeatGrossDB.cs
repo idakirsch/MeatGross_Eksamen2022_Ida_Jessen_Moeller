@@ -19,7 +19,7 @@ namespace IO
         // Customer SQL
 
         /// <summary>
-        /// Metode til at hente alle kunder fra databasen
+        /// Metode til at hente de kunder som er i databasen
         /// </summary>
         /// <returns></returns>
         public List<ClassCustomer> GetAllCustomersFromDB()
@@ -84,6 +84,11 @@ namespace IO
             }
         }
 
+        /// <summary>
+        /// Metode til at gemme kunder i databasen
+        /// </summary>
+        /// <param name="inCustomer"></param>
+        /// <returns></returns>
         public int SaveCustomerInDB(ClassCustomer inCustomer)
         {
             string sqlQuery = "INSERT INTO " +
@@ -109,6 +114,11 @@ namespace IO
             return ExecuteCustomerSqlQuery(inCustomer, sqlQuery, false);
         }
 
+        /// <summary>
+        /// Metode til at opdatere kunder i databasen
+        /// </summary>
+        /// <param name="inCustomer"></param>
+        /// <returns></returns>
         public int UpdateCustomerInDB(ClassCustomer inCustomer)
         {
             string sqlQuery = "UPDATE " +
@@ -126,30 +136,12 @@ namespace IO
             return ExecuteCustomerSqlQuery(inCustomer, sqlQuery, true);
         }
 
-        // Order SQL
-
-        public int SaveOrderInDB(ClassOrder inOrder)
-        {
-            string sqlQuery = "INSERT INTO " +
-                                "Orders " +
-                                    "(Customer, " +
-                                    "Meat, " +
-                                    "Weight, " +
-                                    "OrderDate, " +
-                                    "OrderPriceDKK, " +
-                                    "OrderPriceValuta) " +
-                                "VALUES " +
-                                    "(@Customer, " +
-                                    "@Meat, " +
-                                    "@Weight, " +
-                                    "@OrderDate, " +
-                                    "@OrderPriceDKK, " +
-                                    "@OrderPriceValuta)";
-            return ExecuteOrdersSqlQuery(inOrder, sqlQuery, false);
-        }
-
         // Meat SQL
 
+        /// <summary>
+        /// Metode til at hente det kødet som er i databasen
+        /// </summary>
+        /// <returns></returns>
         public List<ClassMeat> GetAllMeatFromDB()
         {
             List<ClassMeat> listRes = new List<ClassMeat>();
@@ -186,7 +178,12 @@ namespace IO
             }
         }
 
-        public int SaveAllMeatInDB(ClassMeat inMeat)
+        /// <summary>
+        /// Metode til at gemme alt kødet i databasen
+        /// </summary>
+        /// <param name="inMeat"></param>
+        /// <returns></returns>
+        public int SaveMeatInDB(ClassMeat inMeat)
         {
             string sqlQuery = "INSERT INTO " +
                                 "Meat " +
@@ -205,6 +202,11 @@ namespace IO
             return ExecuteMeatSqlQuery(inMeat, sqlQuery, false);
         }
 
+        /// <summary>
+        /// Metode til at opdatere kødet i databasen
+        /// </summary>
+        /// <param name="inMeat"></param>
+        /// <returns></returns>
         public int UpdateMeatInDB(ClassMeat inMeat)
         {
             string sqlQuery = "UPDATE " +
@@ -213,7 +215,7 @@ namespace IO
                                     "TypeOfMeat = @TypeOfMeat, " +
                                     "Stock = @Stock, " +
                                     "Price = @Price, " +
-                                    "PriceTimeStamp = PriceTimeStamp, " +
+                                    "PriceTimeStamp = PriceTimeStamp " +
                                 "WHERE " +
                                 "Id = @Id";
             return ExecuteMeatSqlQuery(inMeat, sqlQuery, true);
@@ -221,6 +223,10 @@ namespace IO
 
         // Country SQL
 
+        /// <summary>
+        /// Metode til at hente de lande som er i databasen
+        /// </summary>
+        /// <returns></returns>
         public List<ClassCountry> GetAllCountriesFromDB()
         {
             List<ClassCountry> listRes = new List<ClassCountry>();
@@ -238,7 +244,7 @@ namespace IO
                         country.countryCode = row["CountryCode"].ToString();
                         country.countryName = row["CountryName"].ToString();
                         country.valutaName = row["ValutaName"].ToString();
-                        country.valutaRate = Convert.ToDouble(row["ValutaRate"].ToString());
+                        country.valutaRate = Convert.ToDouble(row["ValutaRate"]);
                         country.updateTime = Convert.ToDateTime(row["UpdateTime"]);
 
                         listRes.Add(country);
@@ -259,6 +265,80 @@ namespace IO
                 CloseDB();
             }
         }
+
+        /// <summary>
+        /// Metode til at gemme land i databasen
+        /// </summary>
+        /// <param name="inCountry"></param>
+        /// <returns></returns>
+        public int SaveCountryInDB(ClassCountry inCountry)
+        {
+            string sqlQuery = "INSERT INTO " +
+                                "CountryAndRates " +
+                                    "(CountryCode, " +
+                                    "CountryName, " +
+                                    "ValutaName, " +
+                                    "ValutaRate, " +
+                                    "UpdateTime) " +
+                                "VALUES " +
+                                    "(@CountryCode, " +
+                                    "@CountryName, " +
+                                    "@ValutaName, " +
+                                    "@ValutaRate, " +
+                                    "@UpdateTime) " +
+                                "SELECT " +
+                                    "SCOPE_IDENTITY()";
+
+            return ExecuteCountrySqlQuery(inCountry, sqlQuery, false);
+        }
+
+        /// <summary>
+        /// Metode til at opdatere land i databasen
+        /// </summary>
+        /// <param name="inCountry"></param>
+        /// <returns></returns>
+        public int UpdateCountryInDB(ClassCountry inCountry)
+        {
+            string sqlQuery = "UPDATE " +
+                                    "CountryAndRates " +
+                                "SET " +
+                                    "CountryCode = @CountryCode, " +
+                                    "CountryName = @CountryName, " +
+                                    "ValutaName = @ValutaName, " +
+                                    "ValutaRate = @ValutaRate, " +
+                                    "UpdateTime = UpdateTime " +
+                                "WHERE " +
+                                "Id = @Id";
+            return ExecuteCountrySqlQuery(inCountry, sqlQuery, true);
+        }
+
+        // Order SQL
+
+        /// <summary>
+        /// Metode til at gemme ordrer i databasen
+        /// </summary>
+        /// <param name="inOrder"></param>
+        /// <returns></returns>
+        public int SaveOrderInDB(ClassOrder inOrder)
+        {
+            string sqlQuery = "INSERT INTO " +
+                                "Orders " +
+                                    "(Customer, " +
+                                    "Meat, " +
+                                    "Weight, " +
+                                    "OrderDate, " +
+                                    "OrderPriceDKK, " +
+                                    "OrderPriceValuta) " +
+                                "VALUES " +
+                                    "(@Customer, " +
+                                    "@Meat, " +
+                                    "@Weight, " +
+                                    "@OrderDate, " +
+                                    "@OrderPriceDKK, " +
+                                    "@OrderPriceValuta)";
+            return ExecuteOrdersSqlQuery(inOrder, sqlQuery, false);
+        }
+
 
         // Executes
         private int ExecuteCustomerSqlQuery(ClassCustomer inCustomer, string sqlQuery, bool updateExisting)
@@ -300,8 +380,8 @@ namespace IO
                 OpenDB();
                 using (SqlCommand cmd = new SqlCommand(sqlQuery, con))
                 {
-                    cmd.Parameters.Add("@Customer", SqlDbType.Int).Value = inOrder.orderCustomer;
-                    cmd.Parameters.Add("@Meat", SqlDbType.Int).Value = inOrder.orderMeat;
+                    cmd.Parameters.Add("@Customer", SqlDbType.Int).Value = inOrder.orderCustomer.id;
+                    cmd.Parameters.Add("@Meat", SqlDbType.Int).Value = inOrder.orderMeat.id;
                     cmd.Parameters.Add("@Weight", SqlDbType.Int).Value = inOrder.orderWeight;
                     cmd.Parameters.Add("@OrderDate", SqlDbType.DateTime2).Value = DateTime.Now;
                     cmd.Parameters.Add("@OrderPriceDKK", SqlDbType.Money).Value = inOrder.orderPriceDKK;
@@ -333,7 +413,9 @@ namespace IO
                     cmd.Parameters.Add("@TypeOfMeat", SqlDbType.NVarChar).Value = inMeat.typeOfMeat;
                     cmd.Parameters.Add("@Stock", SqlDbType.Int).Value = inMeat.stock;
                     cmd.Parameters.Add("@Price", SqlDbType.Money).Value = inMeat.price;
-                    cmd.Parameters.Add("@PriceTimeStamp", SqlDbType.Int).Value = inMeat.priceTimeStamp;
+                    cmd.Parameters.Add("@PriceTimeStamp", SqlDbType.DateTime2).Value = inMeat.priceTimeStamp;
+
+                    res = updateExisting ? cmd.ExecuteNonQuery() : Convert.ToInt32(cmd.ExecuteScalar());
                 }
             }
             catch (SqlException ex)
@@ -359,8 +441,8 @@ namespace IO
                     cmd.Parameters.Add("@CountryCode", SqlDbType.NVarChar).Value = inCountry.countryCode;
                     cmd.Parameters.Add("@CountryName", SqlDbType.NVarChar).Value = inCountry.countryName;
                     cmd.Parameters.Add("@ValutaName", SqlDbType.NVarChar).Value = inCountry.valutaName;
-                    cmd.Parameters.Add("@ValutaRate", SqlDbType.Money).Value = 1;
-                    cmd.Parameters.Add("@UpdateTime", SqlDbType.Int).Value = DateTime.Now;
+                    cmd.Parameters.Add("@ValutaRate", SqlDbType.Money).Value = inCountry.valutaRate;
+                    cmd.Parameters.Add("@UpdateTime", SqlDbType.DateTime2).Value = DateTime.Now;
 
                     res = updateExisting ? cmd.ExecuteNonQuery() : Convert.ToInt32(cmd.ExecuteScalar());
                 }

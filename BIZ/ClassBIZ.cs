@@ -7,6 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
 using System.Windows;
+using System.Windows.Controls;
 
 namespace BIZ
 {
@@ -149,10 +150,6 @@ namespace BIZ
 		}
 
 // Metoder der bruges til at hente data fra databasen og API
-        public void UpdateListCustomer()
-		{
-
-		}
 
 		public async Task GetApiRates()
 		{
@@ -160,16 +157,44 @@ namespace BIZ
             {
 				while (true)
 				{
-                    string strUrl = $"https://openexchangerates.org/api/latest.json?app_id=4b9528bdaf254e829c2f52f4cdaf4ad2";
+                    string strUrl = $"https://openexchangerates.org/api/latest.json?base=DKK&app_id=4b9528bdaf254e829c2f52f4cdaf4ad2";
                     string apiResponse = await CCWA.GetURLContentsAsync(strUrl);
                     apiRates = JsonConvert.DeserializeObject<ClassApiRates>(apiResponse);
+
+                    // Wait 10 minuttes before calling again
                     await Task.Delay(600000);
                 }
             }
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message, "API Error", MessageBoxButton.OK, MessageBoxImage.Error);
+
+                /*
+                //↓↓ DETTE ER TEST DATA, FJERN SENERE ↓↓
+                string dummyResponse = @"
+                {disclaimer: ""https://openexchangerates.org/terms/"",
+                license: ""https://openexchangerates.org/license/"",
+                timestamp: 1449877801,base: ""USD"",rates: {
+                EUR: 3.672538,USD: 66.809999,RUB: 125.716501,KWD: 484.902502,BHD: 1.788575,OMR: 135.295998,JOD: 9.750101,GBP: 1.390866,
+                KYD: 3.672538,CHF: 66.809999,CAD: 125.716501,AUD: 484.902502,AZN: 1.788575,BRL: 135.295998,HKD: 9.750101,DKK: 1.390866}}";
+                apiRates = JsonConvert.DeserializeObject<ClassApiRates>(dummyResponse);
+                */
             }
+
+            // Update all valutaRates in listCountry and the database
+			foreach (var country in listCountry)
+            {
+                if (apiRates.rates.ContainsKey(country.countryCode))
+                {
+                    country.valutaRate = apiRates.rates[country.countryCode];
+                    CMGDB.UpdateCountryInDB(country);
+                }
+            }
+
+            // Update all valutaRates in listCustomer as well (they have seperate ClassCountry's)
+            foreach (var customer in listCustomer)
+                if (apiRates.rates.ContainsKey(customer.country.countryCode))
+                    customer.country.valutaRate = apiRates.rates[customer.country.countryCode];
         }
 
 		public void SaveNewCustomer()
@@ -202,17 +227,49 @@ namespace BIZ
 
 		public void SaveSaleInDB()
 		{
+			// Save order to database
 			CMGDB.SaveOrderInDB(order);
-		}
 
-		public void SaveNewMeatPrice(int meatIndex)
+			// Remove the stock from selected meat with the amount that was ordered
+			var temp = listMeat[listMeat.IndexOf(order.orderMeat)];
+            temp.stock -= order.orderWeight;
+			// Update the reduction of meat in the database
+            CMGDB.UpdateMeatInDB(temp);
+            // Reflect changes of meat in the GUI
+            order.orderMeat = temp;
+            order.weight = "";
+            // Notify the user that the sale worked (Could be removed)
+            MessageBox.Show("Salget er succefuldt oprettet.", "Succes", MessageBoxButton.OK, MessageBoxImage.Information);
+
+        }
+
+        public void SaveNewMeatPrice(int meatIndex)
 		{
-            // Update the meat in the database
-			CMGDB.UpdateMeatInDB(editListMeat[meatIndex]);
-            // Replace the origional meat with a copy of the newly edited meat
-			listMeat[meatIndex] = new ClassMeat(editListMeat[meatIndex]);
-            // Update the list by remaking it (doesn't work otherwise)
-            listMeat = new List<ClassMeat>(listMeat);
+            ClassMeat orgMeat = listMeat[meatIndex];
+            ClassMeat newMeat = editListMeat[meatIndex];
+
+			if (newMeat.price > 0 && newMeat.stock > 0)
+			{
+				// Reflect changes in the program
+				orgMeat.price = newMeat.price;
+                orgMeat.stock += newMeat.stock;
+
+                // Reset the updated meat for visual feedback
+                newMeat.price = 0;
+                newMeat.stock = 0;
+
+                // Update the meat in the database
+                CMGDB.UpdateMeatInDB(orgMeat);
+
+                // Update the list by remaking it
+                listMeat = new List<ClassMeat>(listMeat);
+            }
+            else
+			{
+                MessageBox.Show("Begge input skal være større end 0.", "Invalid input", MessageBoxButton.OK, MessageBoxImage.Warning);
+            }
+
+            
         }
 
         private List<ClassCustomer> SetUpListCustomer()

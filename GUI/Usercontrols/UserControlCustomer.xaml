@@ -10,8 +10,8 @@
           Background="White"
           IsEnabled="{Binding isEnabled}">
         <Grid.RowDefinitions>
-            <RowDefinition Height="7*" />
-            <RowDefinition Height="11*" />
+            <RowDefinition Height="8*" />
+            <RowDefinition Height="10*" />
             <RowDefinition Height="12*" />
             <RowDefinition Height="12*" />
             <RowDefinition Height="12*" />
@@ -55,7 +55,7 @@
                   Grid.Row="1"
                   Grid.ColumnSpan="2"
                   Margin="5"
-                  VerticalAlignment="Top"
+                  VerticalAlignment="Center"
                   ItemsSource="{Binding listCustomer}"
                   SelectedValuePath="companyName"
                   DisplayMemberPath="companyName"

@@ -19,9 +19,9 @@ namespace Repository
         {
             Id = 0;
             countryName = "";
-            countryCode = "";
+            countryCode = "DKK";
             valutaName = "";
-            valutaRate = 0D;
+            valutaRate = 1D;
             updateTime = DateTime.Now;
         }
 

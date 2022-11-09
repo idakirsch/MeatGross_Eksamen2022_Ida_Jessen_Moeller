@@ -31,7 +31,6 @@ namespace Repository
             stock = inMeat.stock;
             price = inMeat.price;
             priceTimeStamp = inMeat.priceTimeStamp;
-            strTimeStamp = inMeat.strTimeStamp;
         }
 
         public string strTimeStamp
@@ -54,6 +53,7 @@ namespace Repository
                 if (_priceTimeStamp != value)
                 {
                     _priceTimeStamp = value;
+                    strTimeStamp = value.ToString("g");
                 }
                 Notify("priceTimeStamp");
             }
