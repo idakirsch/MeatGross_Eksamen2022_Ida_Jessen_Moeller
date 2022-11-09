@@ -50,8 +50,8 @@
                       Margin="5"
                       VerticalAlignment="Center"
                       ItemsSource="{Binding listMeat}"
-                      SelectedValuePath="TypeOfMeat"
-                      DisplayMemberPath="TypeOfMeat"
+                      SelectedValuePath="typeOfMeat"
+                      DisplayMemberPath="typeOfMeat"
                       SelectedItem="{Binding order.orderMeat}" />
 
 

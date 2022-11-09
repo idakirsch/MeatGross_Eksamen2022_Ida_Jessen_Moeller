@@ -45,6 +45,10 @@ namespace GUI.Usercontrols
         private void buttonEditCustomer_Click(object sender, RoutedEventArgs e)
         {
             BIZ.editOrNewCustomer = new ClassCustomer(BIZ.selectedCustomer);
+
+            // The customers country isn't correctly selected for whatever reason
+            BIZ.editOrNewCustomer.country = BIZ.listCountry.Find(t => t.Id == BIZ.editOrNewCustomer.country.Id);
+
             homeGrid.Children.Add(UCEdit);
             BIZ.isEnabled = false;
         }

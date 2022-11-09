@@ -16,7 +16,7 @@ namespace IO
         private SqlCommand _command;
 
         /// <summary>
-        /// Laver en forbindelse til den valgte server, i dette eksempel FamilyDB i serveren localdb
+        /// Laver en forbindelse til den valgte server, i dette eksempel MeatGrossDB i serveren localdb
         /// </summary>
         public ClassDbCon()
         {

@@ -46,7 +46,6 @@
   <ItemGroup>
     <Compile Include="ClassApiRates.cs" />
     <Compile Include="ClassCountry.cs" />
-    <Compile Include="ClassCurrency.cs" />
     <Compile Include="ClassCustomer.cs" />
     <Compile Include="ClassMeat.cs" />
     <Compile Include="ClassNotify.cs" />

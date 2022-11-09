@@ -18,6 +18,10 @@ namespace IO
 
         // Customer SQL
 
+        /// <summary>
+        /// Metode til at hente alle kunder fra databasen
+        /// </summary>
+        /// <returns></returns>
         public List<ClassCustomer> GetAllCustomersFromDB()
         {
             List<ClassCustomer> listRes = new List<ClassCustomer>();
@@ -107,12 +111,13 @@ namespace IO
 
         public int UpdateCustomerInDB(ClassCustomer inCustomer)
         {
-            string sqlQuery = "UPDATE Customer " +
+            string sqlQuery = "UPDATE " +
+                                    "Customer " +
                                 "SET " +
                                     "CompanyName = @CompanyName, " +
                                     "Address = @Address, " +
                                     "ZipCity = @zipCity, " +
-                                    "Phone = @Phone " +
+                                    "Phone = @Phone, " +
                                     "Mail = @Mail, " +
                                     "ContactName = @ContactName, " +
                                     "Country = @Country " +
@@ -150,19 +155,16 @@ namespace IO
             List<ClassMeat> listRes = new List<ClassMeat>();
             try
             {
-                string sqlQuery = "SELECT " +
-                                    "Meat.Id AS MeatId, " +
-                                    "Meat.TypeOfMeat, " +
-                                    "Meat.Stock, " +
-                                    "Meat.Price, " +
-                                    "Meat.PriceTimeStamp";
+                string sqlQuery = "SELECT * " +
+                                    "FROM " +
+                                        "Meat";
 
                 using (DataTable dataTable = DbReturnDataTable(sqlQuery))
                 {
                     foreach (DataRow row in dataTable.Rows)
                     {
                         ClassMeat meat = new ClassMeat();
-                        meat.id = Convert.ToInt32(row["MeatId"]);
+                        meat.id = Convert.ToInt32(row["Id"]);
                         meat.typeOfMeat = row["TypeOfMeat"].ToString();
                         meat.stock = Convert.ToInt32(row["Stock"]);
                         meat.price = Convert.ToInt32(row["Price"]);
@@ -217,6 +219,47 @@ namespace IO
             return ExecuteMeatSqlQuery(inMeat, sqlQuery, true);
         }
 
+        // Country SQL
+
+        public List<ClassCountry> GetAllCountriesFromDB()
+        {
+            List<ClassCountry> listRes = new List<ClassCountry>();
+            try
+            {
+                string sqlQuery = "SELECT * " +
+                                    "FROM " +
+                                        "CountryAndRates";
+                using (DataTable dataTable = DbReturnDataTable(sqlQuery))
+                {
+                    foreach (DataRow row in dataTable.Rows)
+                    {
+                        ClassCountry country = new ClassCountry();
+                        country.Id = Convert.ToInt32(row["Id"]);
+                        country.countryCode = row["CountryCode"].ToString();
+                        country.countryName = row["CountryName"].ToString();
+                        country.valutaName = row["ValutaName"].ToString();
+                        country.valutaRate = Convert.ToDouble(row["ValutaRate"].ToString());
+                        country.updateTime = Convert.ToDateTime(row["UpdateTime"]);
+
+                        listRes.Add(country);
+
+
+                    }
+                    return listRes;
+                }
+
+            }
+            catch (SqlException ex)
+            {
+
+                throw ex;
+            }
+            finally
+            {
+                CloseDB();
+            }
+        }
+
         // Executes
         private int ExecuteCustomerSqlQuery(ClassCustomer inCustomer, string sqlQuery, bool updateExisting)
         {
@@ -234,6 +277,8 @@ namespace IO
                     cmd.Parameters.Add("@Mail", SqlDbType.NVarChar).Value = inCustomer.mail;
                     cmd.Parameters.Add("@ContactName", SqlDbType.NVarChar).Value = inCustomer.contactName;
                     cmd.Parameters.Add("@Country", SqlDbType.Int).Value = inCustomer.country.Id;
+
+                    res = updateExisting ? cmd.ExecuteNonQuery() : Convert.ToInt32(cmd.ExecuteScalar());
                 }
             }
             catch (SqlException ex)
@@ -261,6 +306,8 @@ namespace IO
                     cmd.Parameters.Add("@OrderDate", SqlDbType.DateTime2).Value = DateTime.Now;
                     cmd.Parameters.Add("@OrderPriceDKK", SqlDbType.Money).Value = inOrder.orderPriceDKK;
                     cmd.Parameters.Add("@OrderPriceValuta", SqlDbType.Money).Value = inOrder.orderPriceValuta;
+
+                    res = updateExisting ? cmd.ExecuteNonQuery() : Convert.ToInt32(cmd.ExecuteScalar());
                 }
             }
             catch (SqlException ex)
@@ -273,6 +320,7 @@ namespace IO
             }
             return res;
         }
+
         private int ExecuteMeatSqlQuery(ClassMeat inMeat, string sqlQuery, bool updateExisting)
         {
             int res = 0;
@@ -307,7 +355,14 @@ namespace IO
                 OpenDB();
                 using (SqlCommand cmd = new SqlCommand(sqlQuery, con))
                 {
-                    
+                    cmd.Parameters.Add("@Id", SqlDbType.Int).Value = inCountry.Id;
+                    cmd.Parameters.Add("@CountryCode", SqlDbType.NVarChar).Value = inCountry.countryCode;
+                    cmd.Parameters.Add("@CountryName", SqlDbType.NVarChar).Value = inCountry.countryName;
+                    cmd.Parameters.Add("@ValutaName", SqlDbType.NVarChar).Value = inCountry.valutaName;
+                    cmd.Parameters.Add("@ValutaRate", SqlDbType.Money).Value = 1;
+                    cmd.Parameters.Add("@UpdateTime", SqlDbType.Int).Value = DateTime.Now;
+
+                    res = updateExisting ? cmd.ExecuteNonQuery() : Convert.ToInt32(cmd.ExecuteScalar());
                 }
             }
             catch (SqlException ex)

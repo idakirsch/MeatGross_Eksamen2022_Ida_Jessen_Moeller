@@ -28,8 +28,8 @@ namespace BIZ
 		public ClassBIZ()
 		{
 			listCustomer = SetUpListCustomer();
-			 listCountry = SetUpListCountry();
-			listMeat = new List<ClassMeat>();
+			listCountry = SetUpListCountry();
+			listMeat = SetUpListMeat();
 			editListMeat = new List<ClassMeat>();
 			apiRates = new ClassApiRates();
             order = new ClassOrder();
@@ -160,8 +160,7 @@ namespace BIZ
             {
 				while (true)
 				{
-					//string strUrl = $"https://openexchangerates.org/api/latest.json?app_id=";
-					string strUrl = "teststring";
+                    string strUrl = $"https://openexchangerates.org/api/latest.json?app_id=4b9528bdaf254e829c2f52f4cdaf4ad2";
                     string apiResponse = await CCWA.GetURLContentsAsync(strUrl);
                     apiRates = JsonConvert.DeserializeObject<ClassApiRates>(apiResponse);
                     await Task.Delay(600000);
@@ -188,6 +187,7 @@ namespace BIZ
 
 		public void UpdateCustomer()
 		{
+            // Update the customer in the database
 			CMGDB.UpdateCustomerInDB(editOrNewCustomer);
 
             // Find currently selected customer in the list (doesn't work otherwise??) 
@@ -207,8 +207,12 @@ namespace BIZ
 
 		public void SaveNewMeatPrice(int meatIndex)
 		{
+            // Update the meat in the database
 			CMGDB.UpdateMeatInDB(editListMeat[meatIndex]);
+            // Replace the origional meat with a copy of the newly edited meat
 			listMeat[meatIndex] = new ClassMeat(editListMeat[meatIndex]);
+            // Update the list by remaking it (doesn't work otherwise)
+            listMeat = new List<ClassMeat>(listMeat);
         }
 
         private List<ClassCustomer> SetUpListCustomer()
@@ -218,7 +222,12 @@ namespace BIZ
 
         private List<ClassCountry> SetUpListCountry()
 		{
-			return new List<ClassCountry>(); //CMGDB.GetAllCountryFromDB();
+			return CMGDB.GetAllCountriesFromDB();
         }
+
+		private List<ClassMeat> SetUpListMeat()
+		{
+			return CMGDB.GetAllMeatFromDB();
+		}
     }
 }
