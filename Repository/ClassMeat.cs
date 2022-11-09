@@ -6,7 +6,12 @@ using System.Threading.Tasks;
 
 namespace Repository
 {
-    internal class ClassMeat
+    public class ClassMeat
     {
+        private 
+        public ClassMeat()
+        {
+            
+        }
     }
 }

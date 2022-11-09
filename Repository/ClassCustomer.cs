@@ -9,15 +9,98 @@ namespace Repository
     public class ClassCustomer : ClassNotify
     {
         private string _companyName;
-        private string _ad
+        private string _address;
+        private string _zipCity;
+        private string _phone;
+        private string _mail;
+        private string _contactName;
+        private int _id;
+        private ClassCountry _country;
 
         public ClassCustomer()
         {
-            
+            companyName = "";
+            address = "";
+            zipCity = "";
+            phone = "";
+            mail = "";
+            contactName = "";
+            id = 0;
+            _country = new ClassCountry();
         }
-        
 
-
+        public int id
+        {
+            get { return _id; }
+            set
+            {
+                if (_id != value)
+                {
+                    _id = value;
+                }
+                Notify("id");
+            }
+        }
+        public string contactName
+        {
+            get { return _contactName; }
+            set
+            {
+                if (_contactName != value)
+                {
+                    _contactName = value;
+                }
+                Notify("contactName");
+            }
+        }
+        public string mail
+        {
+            get { return _mail; }
+            set
+            {
+                if (_mail != value)
+                {
+                    _mail = value;
+                }
+                Notify("mail");
+            }
+        }
+        public string phone
+        {
+            get { return _phone; }
+            set
+            {
+                if (_phone != value)
+                {
+                    _phone = value;
+                }
+                Notify("phone");
+            }
+        }
+        public string zipCity
+        {
+            get { return _zipCity; }
+            set
+            {
+                if (_zipCity != value)
+                {
+                    _zipCity = value;
+                }
+                Notify("zipCity");
+            }
+        }
+        public string address
+        {
+            get { return _address; }
+            set
+            {
+                if (_address != value)
+                {
+                    _address = value;
+                }
+                Notify("address");
+            }
+        }
         public string companyName
         {
             get { return _companyName; }
