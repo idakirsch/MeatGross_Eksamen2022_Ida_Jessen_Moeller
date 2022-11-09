@@ -26,7 +26,19 @@ namespace Repository
             mail = "";
             contactName = "";
             id = 0;
-            _country = new ClassCountry();
+            country = new ClassCountry();
+        }
+
+        public ClassCustomer(ClassCustomer inCustomer)
+        {
+            companyName = inCustomer.companyName;
+            address = inCustomer.address;
+            zipCity = inCustomer.zipCity;
+            phone = inCustomer.phone;
+            mail = inCustomer.mail;
+            contactName = inCustomer.contactName;
+            id = inCustomer.id;
+            country = inCustomer.country;
         }
 
         public int id
@@ -111,6 +123,19 @@ namespace Repository
                     _companyName = value;
                 }
                 Notify("companyName");
+            }
+        }
+
+        public ClassCountry country
+        {
+            get { return _country; }
+            set
+            {
+                if (_country != value)
+                {
+                    _country = value;
+                }
+                Notify("country");
             }
         }
     }

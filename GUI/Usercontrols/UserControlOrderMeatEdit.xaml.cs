@@ -1,4 +1,5 @@
-﻿using System;
+﻿using BIZ;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -20,9 +21,27 @@ namespace GUI.Usercontrols
     /// </summary>
     public partial class UserControlOrderMeatEdit : UserControl
     {
-        public UserControlOrderMeatEdit()
+        ClassBIZ BIZ;
+        Grid homeGrid;
+
+        public UserControlOrderMeatEdit(ClassBIZ inBIZ, Grid inGrid)
         {
             InitializeComponent();
+            BIZ = inBIZ;
+            homeGrid = inGrid;
+        }
+
+        private void Button_Save_Item_Click(object sender, RoutedEventArgs e)
+        {
+            //BIZ.Save(); Jeg ved ikke hvilken metode der skal kaldes her
+            homeGrid.Children.Remove(this);
+            BIZ.isEnabled = true;
+        }
+
+        private void Button_Cancel_Item_Changes_Click(object sender, RoutedEventArgs e)
+        {
+            homeGrid.Children.Remove(this);
+            BIZ.isEnabled = true;
         }
     }
 }

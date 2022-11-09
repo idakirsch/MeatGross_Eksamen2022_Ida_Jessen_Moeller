@@ -1,4 +1,5 @@
-﻿using System;
+﻿using BIZ;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -20,9 +21,27 @@ namespace GUI.Usercontrols
     /// </summary>
     public partial class UserControlCustomerEdit : UserControl
     {
-        public UserControlCustomerEdit()
+        ClassBIZ BIZ;
+        Grid homeGrid;
+
+        public UserControlCustomerEdit(ClassBIZ inBIZ, Grid inGrid)
         {
             InitializeComponent();
+            BIZ = inBIZ;
+            homeGrid = inGrid;
+        }
+
+        private void Button_Save_Customer_Click(object sender, RoutedEventArgs e)
+        {
+            BIZ.SaveNewCustomer();
+            homeGrid.Children.Remove(this);
+            BIZ.isEnabled = true;
+        }
+
+        private void Button_Cancel_Cutomer_Changes_Click(object sender, RoutedEventArgs e)
+        {
+            homeGrid.Children.Remove(this);
+            BIZ.isEnabled = true;
         }
     }
 }

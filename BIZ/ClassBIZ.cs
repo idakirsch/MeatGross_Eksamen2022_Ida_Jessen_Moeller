@@ -5,6 +5,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Newtonsoft.Json;
+using System.Windows;
 
 namespace BIZ
 {
@@ -136,10 +138,23 @@ namespace BIZ
 
 		}
 
-		public async Task<ClassApiRates> GetApiRates()
+		public async Task GetApiRates()
 		{
-			return new ClassApiRates();
-		}
+            try
+            {
+				while (true)
+				{
+                    string strUrl = $"https://openexchangerates.org/api/latest.json?app_id=";
+                    string apiResponse = await CCWA.GetURLContentsAsync(strUrl);
+                    apiRates = JsonConvert.DeserializeObject<ClassApiRates>(apiResponse);
+                    await Task.Delay(600000);
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "API Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+        }
 
 		public void SetUpListCustomer()
 		{

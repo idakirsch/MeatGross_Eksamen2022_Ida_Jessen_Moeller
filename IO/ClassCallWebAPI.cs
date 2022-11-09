@@ -12,13 +12,8 @@ namespace IO
 {
     public class ClassCallWebAPI
     {
-        public async Task<string> GetURLContentsAsync()
+        public async Task<string> GetURLContentsAsync(string strUrl)
         {
-            //Mangler at få URLen
-            throw new NotImplementedException("Ikke Færdigjort metode");
-
-            string strUrl = $"https://openexchangerates.org/api/latest.json?app_id=";
-
             MemoryStream content = new MemoryStream();
             WebRequest webReq = WebRequest.Create(strUrl);
 

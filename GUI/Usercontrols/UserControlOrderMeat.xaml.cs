@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Repository;
+using BIZ;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -20,9 +22,30 @@ namespace GUI.Usercontrols
     /// </summary>
     public partial class UserControlOrderMeat : UserControl
     {
-        public UserControlOrderMeat()
+        ClassBIZ BIZ;
+        Grid homeGrid;
+        UserControlOrderMeatEdit UCEdit;
+
+        public UserControlOrderMeat(ClassBIZ inBIZ, Grid inGrid, UserControlOrderMeatEdit inEdit)
         {
             InitializeComponent();
+            BIZ = inBIZ;
+            homeGrid = inGrid;
+            UCEdit = inEdit;
+        }
+
+        private void Button_Create_Customer_Click(object sender, RoutedEventArgs e)
+        {
+            BIZ.editOrNewCustomer = new ClassCustomer();
+            homeGrid.Children.Add(UCEdit);
+            BIZ.isEnabled = false;
+        }
+
+        private void Button_Edit_Customer_Click(object sender, RoutedEventArgs e)
+        {
+            BIZ.editOrNewCustomer = new ClassCustomer(BIZ.selectedCustomer);
+            homeGrid.Children.Add(UCEdit);
+            BIZ.isEnabled = false;
         }
     }
 }

@@ -8,8 +8,7 @@
              d:DesignHeight="370" d:DesignWidth="425"
              Background="DarkSeaGreen">
 
-    <Grid x:Name="MainGrid"
-        Background="White">
+    <Grid x:Name="MainGrid">
         <Grid.RowDefinitions>
             <RowDefinition Height="7*" />
             <RowDefinition Height="11*" />

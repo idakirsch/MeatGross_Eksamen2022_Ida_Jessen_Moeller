@@ -1,4 +1,6 @@
-﻿using System;
+﻿using BIZ;
+using GUI.Usercontrols;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -20,14 +22,31 @@ namespace GUI
     /// </summary>
     public partial class MainWindow : Window
     {
+        ClassBIZ BIZ;
+
+        UserControlCustomer UCCostumer;
+        UserControlCustomerEdit UCCostumerEdit;
+        UserControlOrderMeat UCOrderMeat;
+        UserControlOrderMeatEdit UCOrderMeatEdit;
+
         public MainWindow()
         {
             InitializeComponent();
+            BIZ = new ClassBIZ();
+            MainGrid.DataContext = BIZ;
+
+            UCCostumerEdit = new UserControlCustomerEdit(BIZ, GridLeft);
+            UCCostumer = new UserControlCustomer(BIZ, GridLeft, UCCostumerEdit);
+            UCOrderMeatEdit = new UserControlOrderMeatEdit(BIZ, GridRight);
+            UCOrderMeat = new UserControlOrderMeat(BIZ, GridRight, UCOrderMeatEdit);
+
+            GridLeft.Children.Add(UCCostumer);
+            GridRight.Children.Add(UCOrderMeat);
         }
 
-        private void Window_Loaded(object sender, RoutedEventArgs e)
+        private async void Window_Loaded(object sender, RoutedEventArgs e)
         {
-
+            await BIZ.GetApiRates();
         }
     }
 }
