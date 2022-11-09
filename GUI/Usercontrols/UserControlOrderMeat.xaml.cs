@@ -34,18 +34,16 @@ namespace GUI.Usercontrols
             UCEdit = inEdit;
         }
 
-        private void Button_Create_Customer_Click(object sender, RoutedEventArgs e)
+        private void buttonEditMeat_Click(object sender, RoutedEventArgs e)
         {
-            BIZ.editOrNewCustomer = new ClassCustomer();
+            BIZ.editListMeat = new List<ClassMeat>(BIZ.listMeat); 
             homeGrid.Children.Add(UCEdit);
             BIZ.isEnabled = false;
         }
 
-        private void Button_Edit_Customer_Click(object sender, RoutedEventArgs e)
+        private void buttonSellToCustomer_Click(object sender, RoutedEventArgs e)
         {
-            BIZ.editOrNewCustomer = new ClassCustomer(BIZ.selectedCustomer);
-            homeGrid.Children.Add(UCEdit);
-            BIZ.isEnabled = false;
+            BIZ.SaveSaleInDB();
         }
     }
 }

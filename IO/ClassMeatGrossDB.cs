@@ -16,6 +16,8 @@ namespace IO
 
         }
 
+        // Customer SQL
+
         public List<ClassCustomer> GetAllCustomersFromDB()
         {
             List<ClassCustomer> listRes = new List<ClassCustomer>();
@@ -50,16 +52,20 @@ namespace IO
                 }
                 return listRes;
             }
-            catch (Exception)
+            catch (SqlException ex)
             {
 
-                throw;
+                throw ex;
+            }
+            finally
+            {
+                CloseDB();
             }
         }
 
         public int SaveCustomerInDB(ClassCustomer inCustomer)
         {
-            string sqlQuery = "INSERT INTO Customers " +
+            string sqlQuery = "INSERT INTO Customer " +
                                     "(CompanyName, Address, zipCity, " +
                                     "Phone, Mail, ContactName, Country) " +
                                 "VALUES " +
@@ -81,6 +87,75 @@ namespace IO
             return ExecuteCustomerSqlQuery(inCustomer, sqlQuery, true);
         }
 
+        // Order SQL
+
+        public int SaveOrderInDB(ClassOrder inOrder)
+        {
+            string sqlQuery = "INSERT INTO Orders " +
+                                "(Customer, Meat, Weight, OrderDate, OrderPriceDKK, OrderPriceValuta) " +
+                              "VALUES " +
+                                "(@Customer, @Meat, @Weight, @OrderDate, @OrderPriceDKK, @OrderPriceValuta)";
+            return ExecuteOrdersSqlQuery(inOrder, sqlQuery, false);
+        }
+
+        // Meat SQL
+
+        public List<ClassMeat> GetAllMeatFromDB()
+        {
+            List<ClassMeat> listRes = new List<ClassMeat>();
+            try
+            {
+                string sqlQuery = "SELECT Meat.Id AS MeatId, " +
+                    "Meat.TypeOfMeat, Meat.Stock, Meat.Price, Meat.PriceTimeStamp";
+
+                using (DataTable dataTable = DbReturnDataTable(sqlQuery))
+                {
+                    foreach (DataRow row in dataTable.Rows)
+                    {
+                        ClassMeat meat = new ClassMeat();
+                        meat.id = Convert.ToInt32(row["MeatId"]);
+                        meat.typeOfMeat = row["TypeOfMeat"].ToString();
+                        meat.stock = Convert.ToInt32(row["Stock"]);
+                        meat.price = Convert.ToInt32(row["Price"]);
+                        meat.priceTimeStamp = Convert.ToDateTime(row["PriceTimeStamp"]);
+
+                        listRes.Add(meat);
+                    }
+                    return listRes;
+                }
+            }
+            catch (SqlException ex)
+            {
+
+                throw ex;
+            }
+            finally
+            {
+                CloseDB();
+            }
+        }
+
+        public int SaveAllMeatInDB(ClassMeat inMeat)
+        {
+            string sqlQuery = "INSERT INTO Meat " +
+                                "(TypeOfMeat, Stock, Price, PriceTimeStamp) " +
+                              "Values " +
+                                "(@TypeOfMeat, @Stock, @Price, @PriceTimeStamp) " +
+                              "SELECT SCOPE_IDENTITY()";
+
+            return ExecuteMeatSqlQuery(inMeat, sqlQuery, false);
+        }
+
+        public int UpdateMeatInDB(ClassMeat inMeat)
+        {
+            string sqlQuery = "UPDATE Meat " +
+                                "SET TypeOfMeat = @TypeOfMeat, Stock = @Stock, " +
+                                "Price = @Price, PriceTimeStamp = PriceTimeStamp, " +
+                                "WHERE Id = @Id";
+            return ExecuteMeatSqlQuery(inMeat, sqlQuery, true);
+        }
+
+        // Executes
         private int ExecuteCustomerSqlQuery(ClassCustomer inCustomer, string sqlQuery, bool updateExisting)
         {
             int res = 0;
@@ -118,7 +193,12 @@ namespace IO
                 OpenDB();
                 using (SqlCommand cmd = new SqlCommand(sqlQuery, con))
                 {
-
+                    cmd.Parameters.Add("@Customer", SqlDbType.Int).Value = inOrder.orderCustomer;
+                    cmd.Parameters.Add("@Meat", SqlDbType.Int).Value = inOrder.orderMeat;
+                    cmd.Parameters.Add("@Weight", SqlDbType.Int).Value = inOrder.orderWeight;
+                    cmd.Parameters.Add("@OrderDate", SqlDbType.DateTime2).Value = DateTime.Now;
+                    cmd.Parameters.Add("@OrderPriceDKK", SqlDbType.Money).Value = inOrder.orderPriceDKK;
+                    cmd.Parameters.Add("@OrderPriceValuta", SqlDbType.Money).Value = inOrder.orderPriceValuta;
                 }
             }
             catch (SqlException ex)
@@ -139,7 +219,11 @@ namespace IO
                 OpenDB();
                 using (SqlCommand cmd = new SqlCommand(sqlQuery, con))
                 {
-
+                    cmd.Parameters.Add("@Id", SqlDbType.Int).Value = inMeat.id;
+                    cmd.Parameters.Add("@TypeOfMeat", SqlDbType.NVarChar).Value = inMeat.typeOfMeat;
+                    cmd.Parameters.Add("@Stock", SqlDbType.Int).Value = inMeat.stock;
+                    cmd.Parameters.Add("@Price", SqlDbType.Money).Value = inMeat.price;
+                    cmd.Parameters.Add("@PriceTimeStamp", SqlDbType.Int).Value = inMeat.priceTimeStamp;
                 }
             }
             catch (SqlException ex)
@@ -161,7 +245,7 @@ namespace IO
                 OpenDB();
                 using (SqlCommand cmd = new SqlCommand(sqlQuery, con))
                 {
-
+                    
                 }
             }
             catch (SqlException ex)

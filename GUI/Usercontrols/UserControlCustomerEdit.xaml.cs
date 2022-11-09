@@ -31,14 +31,22 @@ namespace GUI.Usercontrols
             homeGrid = inGrid;
         }
 
-        private void Button_Save_Customer_Click(object sender, RoutedEventArgs e)
+        private void buttonSaveCustomer_Click(object sender, RoutedEventArgs e)
         {
-            BIZ.SaveNewCustomer();
+            if (BIZ.editOrNewCustomer.id == 0)
+            {
+                BIZ.SaveNewCustomer();
+            }
+            else
+            {
+                BIZ.UpdateCustomer();
+            }
+
             homeGrid.Children.Remove(this);
             BIZ.isEnabled = true;
         }
 
-        private void Button_Cancel_Cutomer_Changes_Click(object sender, RoutedEventArgs e)
+        private void buttonExitCustomer_Click(object sender, RoutedEventArgs e)
         {
             homeGrid.Children.Remove(this);
             BIZ.isEnabled = true;

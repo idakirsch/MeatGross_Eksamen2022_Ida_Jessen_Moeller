@@ -31,17 +31,40 @@ namespace GUI.Usercontrols
             homeGrid = inGrid;
         }
 
-        private void Button_Save_Item_Click(object sender, RoutedEventArgs e)
+        private void buttonExitUpdate_Click(object sender, RoutedEventArgs e)
         {
-            //BIZ.Save(); Jeg ved ikke hvilken metode der skal kaldes her
             homeGrid.Children.Remove(this);
             BIZ.isEnabled = true;
         }
 
-        private void Button_Cancel_Item_Changes_Click(object sender, RoutedEventArgs e)
+        private void SaveGris(object sender, RoutedEventArgs e)
         {
-            homeGrid.Children.Remove(this);
-            BIZ.isEnabled = true;
+            BIZ.SaveNewMeatPrice(BIZ.editListMeat[0]);
+        }
+
+        private void SaveKalv(object sender, RoutedEventArgs e)
+        {
+            BIZ.SaveNewMeatPrice(BIZ.editListMeat[1]);
+        }
+
+        private void SaveOkse(object sender, RoutedEventArgs e)
+        {
+            BIZ.SaveNewMeatPrice(BIZ.editListMeat[2]);
+        }
+
+        private void SaveKylling(object sender, RoutedEventArgs e)
+        {
+            BIZ.SaveNewMeatPrice(BIZ.editListMeat[3]);
+        }
+
+        private void SaveKalkun(object sender, RoutedEventArgs e)
+        {
+            BIZ.SaveNewMeatPrice(BIZ.editListMeat[4]);
+        }
+
+        private void SaveHest(object sender, RoutedEventArgs e)
+        {
+            BIZ.SaveNewMeatPrice(BIZ.editListMeat[5]);
         }
     }
 }

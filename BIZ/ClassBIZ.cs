@@ -18,7 +18,8 @@ namespace BIZ
         private List<ClassCustomer> _listCustomer;
         private List<ClassCountry> _listCountry;
         private List<ClassMeat> _listMeat;
-        private ClassApiRates _apiRates;
+		private List<ClassMeat> _editListMeat;
+		private ClassApiRates _apiRates;
         private ClassCustomer _selectedCustomer;
         private ClassCustomer _editOrNewCustomer;
         private ClassOrder _order;
@@ -29,10 +30,11 @@ namespace BIZ
 			listCustomer = new List<ClassCustomer>();
 			listCountry = new List<ClassCountry>();
 			listMeat = new List<ClassMeat>();
+			editListMeat = new List<ClassMeat>();
 			apiRates = new ClassApiRates();
-			selectedCustomer = new ClassCustomer();
+            order = new ClassOrder();
+            selectedCustomer = new ClassCustomer();
 			editOrNewCustomer = new ClassCustomer();
-			order = new ClassOrder();
 			isEnabled = true;
 		}
 
@@ -72,7 +74,19 @@ namespace BIZ
 				Notify("listMeat");
 			}
 		}
-		public ClassApiRates apiRates
+        public List<ClassMeat> editListMeat
+        {
+            get { return _editListMeat; }
+            set
+            {
+                if (_editListMeat != value)
+                {
+                    _editListMeat = value;
+                }
+                Notify("editListMeat");
+            }
+        }
+        public ClassApiRates apiRates
 		{
 			get { return _apiRates; }
 			set
@@ -104,6 +118,7 @@ namespace BIZ
                 if (_selectedCustomer != value)
                 {
                     _selectedCustomer = value;
+					order.orderCustomer = value;
                 }
                 Notify("selectedCustomer");
             }
@@ -133,7 +148,8 @@ namespace BIZ
 			}
 		}
 
-		public void UpdateListCustomer()
+
+        public void UpdateListCustomer()
 		{
 
 		}
@@ -144,7 +160,8 @@ namespace BIZ
             {
 				while (true)
 				{
-                    string strUrl = $"https://openexchangerates.org/api/latest.json?app_id=";
+					//string strUrl = $"https://openexchangerates.org/api/latest.json?app_id=";
+					string strUrl = "teststring";
                     string apiResponse = await CCWA.GetURLContentsAsync(strUrl);
                     apiRates = JsonConvert.DeserializeObject<ClassApiRates>(apiResponse);
                     await Task.Delay(600000);
@@ -162,26 +179,26 @@ namespace BIZ
 		}
 
 		public int SaveNewCustomer()
-		{
-			return 0;
-		}
+        {
+            return CMGDB.SaveCustomerInDB(editOrNewCustomer);
+        }
 
 		public void UpdateCustomer()
 		{
-
+			CMGDB.UpdateCustomerInDB(editOrNewCustomer);
 		}
 
 		public void SaveSaleInDB()
 		{
-
+			CMGDB.SaveOrderInDB(order);
 		}
 
-		public void SaveNewMeatPrice(string inMeat, double inPrice, int inWeight)
+		public void SaveNewMeatPrice(ClassMeat inMeat)
 		{
+            CMGDB.UpdateMeatInDB(inMeat);
+        }
 
-		}
-
-		private void SetUpListCountry()
+        private void SetUpListCountry()
 		{
 
 		}

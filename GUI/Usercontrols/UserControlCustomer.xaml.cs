@@ -34,14 +34,14 @@ namespace GUI.Usercontrols
             UCEdit = inEdit;
         }
 
-        private void Button_Create_Customer_Click(object sender, RoutedEventArgs e)
+        private void buttonNewCustomer_Click(object sender, RoutedEventArgs e)
         {
             BIZ.editOrNewCustomer = new ClassCustomer();
             homeGrid.Children.Add(UCEdit);
             BIZ.isEnabled = false;
         }
 
-        private void Button_Edit_Customer_Click(object sender, RoutedEventArgs e)
+        private void buttonEditCustomer_Click(object sender, RoutedEventArgs e)
         {
             BIZ.editOrNewCustomer = new ClassCustomer(BIZ.selectedCustomer);
             homeGrid.Children.Add(UCEdit);
