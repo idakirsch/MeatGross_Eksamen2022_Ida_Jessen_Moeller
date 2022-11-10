@@ -60,7 +60,7 @@ namespace IO
                 {
 
                     //Undersøger hvilken af ovenstående betingelser er forkert
-                    //His forbindelsen ikke eksisterer, laver en ny forbindelse
+                    //Hvis forbindelsen ikke eksisterer, laver en ny forbindelse
                     if (!(this.con != null))
                     {
                         con = new SqlConnection(_connectionString);

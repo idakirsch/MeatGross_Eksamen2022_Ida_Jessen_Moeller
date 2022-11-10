@@ -15,6 +15,9 @@ namespace Repository
         private double _valutaRate;
         private DateTime _updateTime;
 
+        /// <summary>
+        /// A: Default Constructor
+        /// </summary>
         public ClassCountry()
         {
             Id = 0;
@@ -25,6 +28,9 @@ namespace Repository
             updateTime = DateTime.Now;
         }
 
+        /// <summary>
+        /// A: Constructor to make a dupplicate
+        /// </summary>
         public ClassCountry(ClassCountry inCountry)
         {
             Id = inCountry.Id;

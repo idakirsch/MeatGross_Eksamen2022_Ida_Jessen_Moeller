@@ -18,6 +18,9 @@ namespace Repository
         private string _priceDKK;
         private string _priceValuta;
 
+        /// <summary>
+        /// A: Default Constructor
+        /// </summary>
         public ClassOrder()
         {
             orderMeat = new ClassMeat();
@@ -37,6 +40,7 @@ namespace Repository
             {
                 if (_weight != value)
                 {
+                    // A: If empty, set to 0
                     if (value == "")
                     {
                         orderWeight = 0;
@@ -51,6 +55,7 @@ namespace Repository
                             orderWeight = orderMeat.stock;
                             _weight = orderMeat.stock.ToString();
                         }
+                        // A: Otherwise only accept input if it is a positive number 
                         else if (x >= 0)
                         {
                             orderWeight = x;
@@ -130,7 +135,7 @@ namespace Repository
                 if (_orderCustomer != value)
                 {
                     _orderCustomer = value;
-                    weight = "";
+                    weight = ""; // A: Reset weight when new customer chosen
                 }
                 Notify("orderCustomer");
             }
@@ -143,12 +148,15 @@ namespace Repository
                 if (_orderMeat != value)
                 {
                     _orderMeat = value;
-                    weight = "";
+                    weight = ""; // A: Reset weight when new meat chosen
                 }
                 Notify("orderMeat");
             }
         }
 
+        /// <summary>
+        /// A: Recalculate all prices from weight, price per kilo and customers currencyrate
+        /// </summary>
         public void CalculateAllPrices()
         {
             orderPriceDKK = orderWeight * orderMeat.price;

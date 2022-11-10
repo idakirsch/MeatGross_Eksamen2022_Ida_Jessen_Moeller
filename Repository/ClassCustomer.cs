@@ -17,6 +17,9 @@ namespace Repository
         private int _id;
         private ClassCountry _country;
 
+        /// <summary>
+        /// A: Default Constructor
+        /// </summary>
         public ClassCustomer()
         {
             companyName = "";
@@ -29,6 +32,9 @@ namespace Repository
             country = new ClassCountry();
         }
 
+        /// <summary>
+        /// A: Constructor to make a dupplicate
+        /// </summary>
         public ClassCustomer(ClassCustomer inCustomer)
         {
             companyName = inCustomer.companyName;

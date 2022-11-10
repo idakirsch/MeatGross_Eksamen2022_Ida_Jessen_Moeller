@@ -12,8 +12,16 @@ namespace IO
 {
     public class ClassCallWebAPI
     {
+        /// <summary>
+        /// I: Henter data fra given api URL.
+        /// Denne synkrone metode kan kommunikere alle former for web API'er.
+        /// Den skal blot modtage en komplet URL.
+        /// </summary>
+        /// <param name="inUrl">string</param>
+        /// <returns>string</returns>
         public async Task<string> GetURLContentsAsync(string strUrl)
         {
+            // A: Streams bliver brugt til at samle flere packets i et enkelt object
             MemoryStream content = new MemoryStream();
             WebRequest webReq = WebRequest.Create(strUrl);
 
@@ -24,7 +32,7 @@ namespace IO
                     await responseStream.CopyToAsync(content);
                 }
             }
-
+            // I: Omdanner resultatet fra api'en til tekst
             return Encoding.UTF8.GetString(content.ToArray());
         }
     }

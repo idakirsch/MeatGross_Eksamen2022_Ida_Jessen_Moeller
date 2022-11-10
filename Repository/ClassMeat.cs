@@ -18,6 +18,9 @@ namespace Repository
         private DateTime _priceTimeStamp;
         private string _strTimeStamp;
 
+        /// <summary>
+        /// A: Default Constructor
+        /// </summary>
         public ClassMeat()
         {
             id = 0;
@@ -27,6 +30,10 @@ namespace Repository
             priceTimeStamp = DateTime.Now;
             strTimeStamp = "";
         }
+
+        /// <summary>
+        /// A: Constructor to make a dupplicate
+        /// </summary>
         public ClassMeat(ClassMeat inMeat)
         {
             id = inMeat.id;
@@ -58,7 +65,7 @@ namespace Repository
                 if (_priceTimeStamp != value)
                 {
                     _priceTimeStamp = value;
-                    strTimeStamp = value.ToString("g");
+                    strTimeStamp = value.ToString("g"); // A: g = General short date time
                 }
                 Notify("priceTimeStamp");
             }
@@ -82,6 +89,7 @@ namespace Repository
             {
                 if (_strPrice != value)
                 {
+                    // A: If empty, set to 0
                     if (value == "")
                     {
                         _strPrice = value;
@@ -89,6 +97,7 @@ namespace Repository
                     }
                     else if (double.TryParse(value, out double x))
                     {
+                        // A: Only accept input if it is a positive number 
                         if (x >= 0)
                         {
                             _strPrice = value;
@@ -118,13 +127,15 @@ namespace Repository
             {
                 if (_strStock != value)
                 {
+                    // A: If empty, set to 0
                     if (value == "")
                     {
                         _strStock = value;
                         stock = 0;
                     }
-                    if (int.TryParse(value, out int x))
+                    else if (int.TryParse(value, out int x))
                     {
+                        // A: Only accept input if it is a positive number 
                         if (x >= 0)
                         {
                             _strStock = value;

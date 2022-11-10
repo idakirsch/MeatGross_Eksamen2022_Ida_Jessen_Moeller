@@ -123,6 +123,7 @@ namespace BIZ
                 if (_selectedCustomer != value)
                 {
                     _selectedCustomer = value;
+                    // A: Also set order's customer to the selected customer
 					order.orderCustomer = value;
                 }
                 Notify("selectedCustomer");
@@ -193,8 +194,9 @@ namespace BIZ
                 MessageBox.Show(ex.Message, "API Error", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
+
         /// <summary>
-        /// A: Saves Customer in Database
+        /// Saves Customer in Database
         /// </summary>
 		public void SaveNewCustomer()
         {
@@ -208,8 +210,9 @@ namespace BIZ
             // A: Update the list by remaking it (doesn't work otherwise)
             listCustomer = new List<ClassCustomer>(listCustomer);
         }
+
         /// <summary>
-        /// A: Updates Customer in Database with new data
+        /// Updates Customer in Database with new data
         /// </summary>
 		public void UpdateCustomer()
 		{
@@ -225,8 +228,9 @@ namespace BIZ
             // A: Update the list by remaking it (doesn't work otherwise)
             listCustomer = new List<ClassCustomer>(listCustomer);
         }
+
         /// <summary>
-        /// A: Saves order in Database
+        /// Saves order in Database
         /// </summary>
 		public void SaveSaleInDB()
 		{
@@ -260,10 +264,11 @@ namespace BIZ
                 MessageBox.Show("Der skal vælges en kunde og en type kød.", "Manglende valg", MessageBoxButton.OK, MessageBoxImage.Warning);
             }
         }
+
         /// <summary>
-        /// A: Updates Meat prices in Database
+        /// Updates Meat prices in Database
         /// </summary>
-        /// <param name="meatIndex"></param>
+        /// <param name="meatIndex">int</param>
         public void SaveNewMeatPrice(int meatIndex)
 		{
             ClassMeat orgMeat = listMeat[meatIndex];
