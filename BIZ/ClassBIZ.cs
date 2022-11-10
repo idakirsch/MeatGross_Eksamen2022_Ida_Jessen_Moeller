@@ -174,14 +174,14 @@ namespace BIZ
                         if (apiRates.rates.ContainsKey(country.countryCode))
                         {
                             // A: ApiRates cames back as USD, so you have to divide by The rate of DKK first to match the database
-                            country.valutaRate = apiRates.rates[country.countryCode] / apiRates.rates["DKK"];
+                            country.valutaRate = apiRates.rates["DKK"] / apiRates.rates[country.countryCode];
                             CMGDB.UpdateCountryInDB(country);
                         }
                     }
                     // A: Update all valutaRates in listCustomer as well (they have seperate ClassCountry's)
                     foreach (var customer in listCustomer)
                         if (apiRates.rates.ContainsKey(customer.country.countryCode))
-                            customer.country.valutaRate = apiRates.rates[customer.country.countryCode] / apiRates.rates["DKK"];
+                            customer.country.valutaRate = apiRates.rates["DKK"] / apiRates.rates[customer.country.countryCode];
 
                     // A: Wait 10 minuttes before calling again
                     await Task.Delay(600000);
@@ -273,8 +273,8 @@ namespace BIZ
                 orgMeat.stock += newMeat.stock;
 
                 // A: Reset the updated meat for visual feedback
-                newMeat.price = 0;
-                newMeat.stock = 0;
+                newMeat.strPrice = "";
+                newMeat.strStock = "";
 
                 // A: Update the meat in the database
                 CMGDB.UpdateMeatInDB(orgMeat);

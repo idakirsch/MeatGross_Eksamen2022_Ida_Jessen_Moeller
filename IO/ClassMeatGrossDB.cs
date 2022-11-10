@@ -69,17 +69,20 @@ namespace IO
                         customer.country.valutaName = row["ValutaName"].ToString();
                         customer.country.valutaRate = Convert.ToDouble(row["ValutaRate"]);
                         customer.country.updateTime = Convert.ToDateTime(row["UpdateTime"]);
-                        // R: tilføjer kunden 
+                        // R: tilføjer kunden til listen
                         listRes.Add(customer);
                     }
                 }
+                // R: Retunere listen
                 return listRes;
             }
+            // R: Hvis man for en fejl i Sqlen smider den en fejl
             catch (SqlException ex)
             {
 
                 throw ex;
             }
+            // R: Og lukker databasen til slut
             finally
             {
                 CloseDB();
@@ -92,7 +95,7 @@ namespace IO
         /// <param name="inCustomer">ClassCustomer</param>
         /// <returns>int</returns>
         public int SaveCustomerInDB(ClassCustomer inCustomer)
-        {
+        { // R: Laver en sql query for at indsætte data en i en row
             string sqlQuery = "INSERT INTO " +
                                 "Customer " +
                                     "(CompanyName, " +
@@ -112,7 +115,7 @@ namespace IO
                                     "@Country) " +
                                 "SELECT " +
                                     "SCOPE_IDENTITY()";
-
+            // Henter det data som skal sættes ind og starter sql queriet
             return ExecuteCustomerSqlQuery(inCustomer, sqlQuery, false);
         }
 
@@ -122,7 +125,7 @@ namespace IO
         /// <param name="inCustomer">ClassCustomer</param>
         /// <returns>int</returns>
         public int UpdateCustomerInDB(ClassCustomer inCustomer)
-        {
+        { // R: Laer en sql query for at opdatere en row i Customer
             string sqlQuery = "UPDATE " +
                                     "Customer " +
                                 "SET " +
@@ -133,7 +136,7 @@ namespace IO
                                     "Mail = @Mail, " +
                                     "ContactName = @ContactName, " +
                                     "Country = @Country " +
-                                "WHERE " +
+                                "WHERE " + // R: Opdaterer det sted hvor Id er det samme
                                     "Id = @Id";
             return ExecuteCustomerSqlQuery(inCustomer, sqlQuery, true);
         }

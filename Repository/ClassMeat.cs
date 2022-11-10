@@ -22,8 +22,8 @@ namespace Repository
         {
             id = 0;
             typeOfMeat = "";
-            strStock = "0";
-            strPrice = "0";
+            strStock = "";
+            strPrice = "";
             priceTimeStamp = DateTime.Now;
             strTimeStamp = "";
         }
@@ -82,10 +82,18 @@ namespace Repository
             {
                 if (_strPrice != value)
                 {
-                    if (double.TryParse(value, out double x))
+                    if (value == "")
                     {
                         _strPrice = value;
-                        price = x;
+                        price = 0;
+                    }
+                    else if (double.TryParse(value, out double x))
+                    {
+                        if (x >= 0)
+                        {
+                            _strPrice = value;
+                            price = x;
+                        }
                     }
                 }
                 Notify("strPrice");
@@ -110,10 +118,18 @@ namespace Repository
             {
                 if (_strStock != value)
                 {
-                    if (int.TryParse(value, out int x))
+                    if (value == "")
                     {
                         _strStock = value;
-                        stock = x;
+                        stock = 0;
+                    }
+                    if (int.TryParse(value, out int x))
+                    {
+                        if (x >= 0)
+                        {
+                            _strStock = value;
+                            stock = x;
+                        }
                     }
                 }
                 Notify("strStock");

@@ -1,35 +1,37 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
+using BIZ;
 
 namespace Test
 {
     [TestClass]
     public class UnitTest1
     {
+        ClassBIZ BIZ = new ClassBIZ();
+
         [TestMethod]
-        // System.Data.SqlClient = Visual Studios using halløj
-        // Data Source = serveren
-        // Initial Catalog = databasen
-        // Integrated Security = Sikkerhed
-        // RandomCalc = Tabellen
-        // DataAccessMethod.Sequential = Læser dataen sekventielt
-        [DataSource("System.Data.SqlClient", @"Data Source=(localdb)\MSSQLLocalDB; 
-            Initial Catalog=MEatGrossDB; Integrated Security=True", "RandomCalc", DataAccessMethod.Sequential)]
-        public void TestMethod1000Plus()
+        public void TestCalcAllPrices()
         {
 
         // Arrange
-            BIZ.tal1 = TestContext.DataRow["tal1"].ToString();
-            // Vælger data fra kolonnen tal2 som string
-            BIZ.tal2 = TestContext.DataRow["tal2"].ToString();
+            BIZ.order.orderWeight = 10; // Quantity sold
+            BIZ.order.orderMeat.price = 23.325D; // Price of meat
+            BIZ.order.orderCustomer.country.valutaRate = 7.44D; // EURO exchange rate 
+            // DKK calc result and expected result
             double res = 0D;
-            double expected = Convert.ToDouble(TestContext.DataRow["resPlus"]);
+            double expected = 233.25D;
+            // Own valuta calc (Euro) result and expected result
+            double res2 = 0D;
+            double expected2 = 31.3508064516129D;
 
         // Act
-            res = BIZ.resPlus;
+            BIZ.order.CalculateAllPrices();
+            res = BIZ.order.orderPriceDKK;
+            res2 = BIZ.order.orderPriceValuta;
 
         // Assert
-            Assert.AreEqual(expected, res, 0.000000001);
+            Assert.AreEqual(expected, res, 0.01);
+            Assert.AreEqual(expected2, res2, 0.01);
         }
     }
 }

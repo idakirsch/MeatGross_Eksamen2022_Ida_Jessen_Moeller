@@ -64,7 +64,7 @@
                    FontSize="10" />
 
 <!--Price pr. kg-->
-            <Label Content="Pris pr. kg.:"
+            <Label Content="Pris pr. kg. i DKK:"
                    Grid.Row="2"
                    Grid.Column="0"
                    Margin="24,2,24,2"

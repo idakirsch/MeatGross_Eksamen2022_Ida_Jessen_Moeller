@@ -37,7 +37,6 @@ namespace GUI.Usercontrols
         private void buttonNewCustomer_Click(object sender, RoutedEventArgs e)
         {
             BIZ.editOrNewCustomer = new ClassCustomer();
-            BIZ.selectedCustomer = new ClassCustomer();
             homeGrid.Children.Add(UCEdit);
             BIZ.isEnabled = false;
         }

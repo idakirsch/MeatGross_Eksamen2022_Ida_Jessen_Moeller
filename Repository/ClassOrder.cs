@@ -44,8 +44,10 @@ namespace Repository
                     }
                     else if (int.TryParse(value, out int x))
                     {
+                        // A: Make sure the amount doesn't exceed the stock available
                         if (x > orderMeat.stock)
                         {
+                            // A: If it does, set the amount equal to the stock
                             orderWeight = orderMeat.stock;
                             _weight = orderMeat.stock.ToString();
                         }
@@ -150,7 +152,7 @@ namespace Repository
         public void CalculateAllPrices()
         {
             orderPriceDKK = orderWeight * orderMeat.price;
-            orderPriceValuta = orderPriceDKK * orderCustomer.country.valutaRate;
+            orderPriceValuta = orderPriceDKK / orderCustomer.country.valutaRate;
 
             priceDKK = orderPriceDKK.ToString("#0.00");
             priceValuta = orderPriceValuta.ToString("#0.00");
