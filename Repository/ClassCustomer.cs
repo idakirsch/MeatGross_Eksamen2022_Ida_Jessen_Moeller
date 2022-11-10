@@ -138,5 +138,22 @@ namespace Repository
                 Notify("country");
             }
         }
+
+        /// <summary>
+        /// Checks that all properties have a non-empty value
+        /// </summary>
+        /// <returns>bool</returns>
+        public bool AreAllFieldsFilled()
+        {
+            if (companyName != "" &&
+                address != "" &&
+                zipCity != "" &&
+                phone != "" &&
+                mail != "" &&
+                contactName != "" &&
+                country.Id != 0)
+                return true;
+            else return false;
+        }
     }
 }

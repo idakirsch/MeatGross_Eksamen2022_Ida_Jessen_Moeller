@@ -33,19 +33,27 @@ namespace GUI.Usercontrols
 
         private void buttonSaveCustomer_Click(object sender, RoutedEventArgs e)
         {
-            // B: If Customer doesn't exist, adds Customer to Database
-            if (BIZ.editOrNewCustomer.id == 0)
+            if (BIZ.editOrNewCustomer.AreAllFieldsFilled())
             {
-                BIZ.SaveNewCustomer();
+                // B: If Customer doesn't exist, adds Customer to Database
+                if (BIZ.editOrNewCustomer.id == 0)
+                {
+                    BIZ.SaveNewCustomer();
+                }
+                // If Customer exists, updates Customer data in Database
+                else
+                {
+                    BIZ.UpdateCustomer();
+                }
+
+                homeGrid.Children.Remove(this);
+                BIZ.isEnabled = true;
             }
-            // If Customer exists, updates Customer data in Database
             else
             {
-                BIZ.UpdateCustomer();
+                // A: Message, Window title, Buttons available, Icon
+                MessageBox.Show("Venligst udfyld alle felter.", "Manglende felter", MessageBoxButton.OK, MessageBoxImage.Warning);
             }
-
-            homeGrid.Children.Remove(this);
-            BIZ.isEnabled = true;
         }
 
         private void buttonExitCustomer_Click(object sender, RoutedEventArgs e)
