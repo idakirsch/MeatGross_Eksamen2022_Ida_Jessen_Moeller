@@ -142,18 +142,23 @@ namespace Repository
         /// <summary>
         /// Checks that all properties have a non-empty value
         /// </summary>
-        /// <returns>bool</returns>
+        /// <returns>True or False</returns>
         public bool AreAllFieldsFilled()
         {
-            if (companyName != "" &&
-                address != "" &&
-                zipCity != "" &&
-                phone != "" &&
-                mail != "" &&
-                contactName != "" &&
+            if (companyName.Trim().Length > 0 &&
+                address.Trim().Length > 0 &&
+                zipCity.Trim().Length > 0 &&
+                phone.Trim().Length > 0 &&
+                mail.Trim().Length > 0 &&
+                contactName.Trim().Length > 0 &&
                 country.Id != 0)
+            {
                 return true;
-            else return false;
+            }
+            else
+            {
+                return false;
+            }
         }
     }
 }
