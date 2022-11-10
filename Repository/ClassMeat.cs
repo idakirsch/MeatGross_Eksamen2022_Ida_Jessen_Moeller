@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json.Linq;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -11,7 +12,9 @@ namespace Repository
         private int _id;
         private string _typeOfMeat;
         private int _stock;
+        private string _strStock;
         private double _price;
+        private string _strPrice;
         private DateTime _priceTimeStamp;
         private string _strTimeStamp;
 
@@ -19,8 +22,8 @@ namespace Repository
         {
             id = 0;
             typeOfMeat = "";
-            stock = 0;
-            price = 0D;
+            strStock = "0";
+            strPrice = "0";
             priceTimeStamp = DateTime.Now;
             strTimeStamp = "";
         }
@@ -28,6 +31,8 @@ namespace Repository
         {
             id = inMeat.id;
             typeOfMeat = inMeat.typeOfMeat;
+            strStock = inMeat.strStock;
+            strPrice = inMeat.strPrice;
             stock = inMeat.stock;
             price = inMeat.price;
             priceTimeStamp = inMeat.priceTimeStamp;
@@ -70,6 +75,22 @@ namespace Repository
                 Notify("price");
             }
         }
+        public string strPrice
+        {
+            get { return _strPrice; }
+            set
+            {
+                if (_strPrice != value)
+                {
+                    if (double.TryParse(value, out double x))
+                    {
+                        _strPrice = value;
+                        price = x;
+                    }
+                }
+                Notify("strPrice");
+            }
+        }
         public int stock
         {
             get { return _stock; }
@@ -80,6 +101,22 @@ namespace Repository
                     _stock = value;
                 }
                 Notify("stock");
+            }
+        }
+        public string strStock
+        {
+            get { return _strStock; }
+            set
+            {
+                if (_strStock != value)
+                {
+                    if (int.TryParse(value, out int x))
+                    {
+                        _strStock = value;
+                        stock = x;
+                    }
+                }
+                Notify("strStock");
             }
         }
         public string typeOfMeat

@@ -16,17 +16,18 @@ namespace IO
 
         }
 
-        // Customer SQL
-
+    // Customer SQL
         /// <summary>
-        /// Metode til at hente de kunder som er i databasen
+        /// R: Metode til at hente de kunder som er i databasen
         /// </summary>
-        /// <returns></returns>
+        /// <returns>List<ClassCustomer></returns>
         public List<ClassCustomer> GetAllCustomersFromDB()
         {
+            // R: Skaber en ny liste af ClassCustomer
             List<ClassCustomer> listRes = new List<ClassCustomer>();
             try
             {
+                // R: Skaber en sql query som henter alt man skal bruge fra Customer
                 string sqlQuery = "SELECT " +
                                     "Customer.Id AS CustomerId, " + 
                                     "Customer.CompanyName, " +
@@ -47,9 +48,10 @@ namespace IO
                                     "CountryAndRates " +
                                 "ON " +
                                     "Customer.Country = CountryAndRates.Id";
-
+                
                 using (DataTable dataTable = DbReturnDataTable(sqlQuery))
                 {
+                    // R: for hvert row i Customer tabellen og fylder en customer med dens data, den tager også en del data fra Country tabellen 
                     foreach (DataRow row in dataTable.Rows)
                     {
                         ClassCustomer customer = new ClassCustomer();
@@ -67,7 +69,7 @@ namespace IO
                         customer.country.valutaName = row["ValutaName"].ToString();
                         customer.country.valutaRate = Convert.ToDouble(row["ValutaRate"]);
                         customer.country.updateTime = Convert.ToDateTime(row["UpdateTime"]);
-
+                        // R: tilføjer
                         listRes.Add(customer);
                     }
                 }
@@ -85,10 +87,10 @@ namespace IO
         }
 
         /// <summary>
-        /// Metode til at gemme kunder i databasen
+        /// R: Metode til at gemme kunder i databasen
         /// </summary>
-        /// <param name="inCustomer"></param>
-        /// <returns></returns>
+        /// <param name="inCustomer">ClassCustomer</param>
+        /// <returns>int</returns>
         public int SaveCustomerInDB(ClassCustomer inCustomer)
         {
             string sqlQuery = "INSERT INTO " +
@@ -115,10 +117,10 @@ namespace IO
         }
 
         /// <summary>
-        /// Metode til at opdatere kunder i databasen
+        /// R: Metode til at opdatere kunder i databasen
         /// </summary>
-        /// <param name="inCustomer"></param>
-        /// <returns></returns>
+        /// <param name="inCustomer">ClassCustomer</param>
+        /// <returns>int</returns>
         public int UpdateCustomerInDB(ClassCustomer inCustomer)
         {
             string sqlQuery = "UPDATE " +
@@ -136,18 +138,18 @@ namespace IO
             return ExecuteCustomerSqlQuery(inCustomer, sqlQuery, true);
         }
 
-        // Meat SQL
-
+    // Meat SQL
         /// <summary>
-        /// Metode til at hente det kødet som er i databasen
+        /// R: Metode til at hente det kødet som er i databasen
         /// </summary>
-        /// <returns></returns>
+        /// <returns>List<ClassMeat></returns>
         public List<ClassMeat> GetAllMeatFromDB()
         {
             List<ClassMeat> listRes = new List<ClassMeat>();
             try
             {
-                string sqlQuery = "SELECT * " +
+                string sqlQuery = "SELECT " +
+                                        "* " +
                                     "FROM " +
                                         "Meat";
 
@@ -179,10 +181,10 @@ namespace IO
         }
 
         /// <summary>
-        /// Metode til at gemme alt kødet i databasen
+        /// R: Metode til at gemme alt kødet i databasen
         /// </summary>
-        /// <param name="inMeat"></param>
-        /// <returns></returns>
+        /// <param name="inMeat">ClassMeat</param>
+        /// <returns>int</returns>
         public int SaveMeatInDB(ClassMeat inMeat)
         {
             string sqlQuery = "INSERT INTO " +
@@ -203,10 +205,10 @@ namespace IO
         }
 
         /// <summary>
-        /// Metode til at opdatere kødet i databasen
+        /// R: Metode til at opdatere kødet i databasen
         /// </summary>
-        /// <param name="inMeat"></param>
-        /// <returns></returns>
+        /// <param name="inMeat">ClassMeat</param>
+        /// <returns>int</returns>
         public int UpdateMeatInDB(ClassMeat inMeat)
         {
             string sqlQuery = "UPDATE " +
@@ -221,12 +223,11 @@ namespace IO
             return ExecuteMeatSqlQuery(inMeat, sqlQuery, true);
         }
 
-        // Country SQL
-
+    // Country SQL
         /// <summary>
-        /// Metode til at hente de lande som er i databasen
+        /// R: Metode til at hente de lande som er i databasen
         /// </summary>
-        /// <returns></returns>
+        /// <returns>List<ClassCountry></returns>
         public List<ClassCountry> GetAllCountriesFromDB()
         {
             List<ClassCountry> listRes = new List<ClassCountry>();
@@ -267,10 +268,10 @@ namespace IO
         }
 
         /// <summary>
-        /// Metode til at gemme land i databasen
+        /// R: Metode til at gemme land i databasen
         /// </summary>
-        /// <param name="inCountry"></param>
-        /// <returns></returns>
+        /// <param name="inCountry">ClassCountry</param>
+        /// <returns>int</returns>
         public int SaveCountryInDB(ClassCountry inCountry)
         {
             string sqlQuery = "INSERT INTO " +
@@ -293,10 +294,10 @@ namespace IO
         }
 
         /// <summary>
-        /// Metode til at opdatere land i databasen
+        /// R: Metode til at opdatere land i databasen
         /// </summary>
-        /// <param name="inCountry"></param>
-        /// <returns></returns>
+        /// <param name="inCountry">ClassCountry</param>
+        /// <returns>int</returns>
         public int UpdateCountryInDB(ClassCountry inCountry)
         {
             string sqlQuery = "UPDATE " +
@@ -312,13 +313,12 @@ namespace IO
             return ExecuteCountrySqlQuery(inCountry, sqlQuery, true);
         }
 
-        // Order SQL
-
+    // Order SQL
         /// <summary>
-        /// Metode til at gemme ordrer i databasen
+        /// R: Metode til at gemme ordrer i databasen
         /// </summary>
-        /// <param name="inOrder"></param>
-        /// <returns></returns>
+        /// <param name="inOrder">ClassOrder</param>
+        /// <returns>int</returns>
         public int SaveOrderInDB(ClassOrder inOrder)
         {
             string sqlQuery = "INSERT INTO " +
@@ -340,7 +340,14 @@ namespace IO
         }
 
 
-        // Executes
+    // Executes SQL queries
+        /// <summary>
+        /// R: Metode til at gennemføre en SQL query til kunde delen af databasen så vi ikke behøver at skrive den 3 gange.
+        /// </summary>
+        /// <param name="inCustomer">ClassCustomer</param>
+        /// <param name="sqlQuery">string</param>
+        /// <param name="updateExisting">bool</param>
+        /// <returns>int</returns>
         private int ExecuteCustomerSqlQuery(ClassCustomer inCustomer, string sqlQuery, bool updateExisting)
         {
             int res = 0;
@@ -372,6 +379,13 @@ namespace IO
             return res;
         }
 
+        /// <summary>
+        /// R: Metode til at gennemføre en SQL query til order delen af datbasen så vi ikke behøver at skrive den 3 gange
+        /// </summary>
+        /// <param name="inOrder">ClassOrder</param>
+        /// <param name="sqlQuery">string</param>
+        /// <param name="updateExisting">bool</param>
+        /// <returns>int</returns>
         private int ExecuteOrdersSqlQuery(ClassOrder inOrder, string sqlQuery, bool updateExisting)
         {
             int res = 0;
@@ -401,6 +415,13 @@ namespace IO
             return res;
         }
 
+        /// <summary>
+        /// R: Metode til at gennemføre en SQL query til kød delen af databasen så vi ikke behøver at skrive den 3 gange
+        /// </summary>
+        /// <param name="inMeat">ClassMeat</param>
+        /// <param name="sqlQuery">string</param>
+        /// <param name="updateExisting">bool</param>
+        /// <returns>int</returns>
         private int ExecuteMeatSqlQuery(ClassMeat inMeat, string sqlQuery, bool updateExisting)
         {
             int res = 0;
@@ -429,6 +450,13 @@ namespace IO
             return res;
         }
 
+        /// <summary>
+        /// R: Metode til at gennemføre en SQL query til kød delen af databasen så vi ikke behøver at skrive den 3 gange
+        /// </summary>
+        /// <param name="inCountry">ClassCountry</param>
+        /// <param name="sqlQuery">string</param>
+        /// <param name="updateExisting">bool</param>
+        /// <returns>int</returns>
         private int ExecuteCountrySqlQuery(ClassCountry inCountry, string sqlQuery, bool updateExisting)
         {
             int res = 0;

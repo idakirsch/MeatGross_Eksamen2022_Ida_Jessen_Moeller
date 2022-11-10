@@ -27,7 +27,7 @@
             <ColumnDefinition Width="1*"/>
         </Grid.ColumnDefinitions>
 
-        <!--Kød type-->
+<!--Labels row-->
         <Label x:Name="meatType"
                Grid.Row="0"
                Grid.Column="0"
@@ -36,50 +36,6 @@
                FontWeight="Bold"
                HorizontalAlignment="Center"
                VerticalAlignment="Center"/>
-        <Label Grid.Row="1"
-               Grid.Column="0"
-               Content="{Binding listMeat[0].typeOfMeat}"
-               FontSize="16"
-               HorizontalAlignment="Left"
-               VerticalAlignment="Center"
-               Margin="10,0,0,0"/>
-        <Label Grid.Row="2"
-               Grid.Column="0"
-               Content="{Binding listMeat[1].typeOfMeat}"
-               FontSize="16"
-               HorizontalAlignment="Left"
-               VerticalAlignment="Center"
-               Margin="10,0,0,0"/>
-        <Label Grid.Row="3"
-               Grid.Column="0"
-               Content="{Binding listMeat[2].typeOfMeat}"
-               FontSize="16"
-               HorizontalAlignment="Left"
-               VerticalAlignment="Center"
-               Margin="10,0,0,0"/>
-        <Label Grid.Row="4"
-               Grid.Column="0"
-               Content="{Binding listMeat[3].typeOfMeat}"
-               FontSize="16"
-               HorizontalAlignment="Left"
-               VerticalAlignment="Center"
-               Margin="10,0,0,0"/>
-        <Label Grid.Row="5"
-               Grid.Column="0"
-               Content="{Binding listMeat[4].typeOfMeat}"
-               FontSize="16"
-               HorizontalAlignment="Left"
-               VerticalAlignment="Center"
-               Margin="10,0,0,0"/>
-        <Label Grid.Row="6"
-               Grid.Column="0"
-               Content="{Binding listMeat[5].typeOfMeat}"
-               FontSize="16"
-               HorizontalAlignment="Left"
-               VerticalAlignment="Center"
-               Margin="10,0,0,0"/>
-
-        <!--Pris-->
         <Label x:Name="Price"
                Grid.Row="0"
                Grid.Column="1"
@@ -88,82 +44,6 @@
                FontWeight="Bold"
                HorizontalAlignment="Center"
                VerticalAlignment="Center"/>
-        <Label Grid.Row="1"
-               Grid.Column="1"
-               Content="{Binding listMeat[0].price}"
-               FontSize="16"
-               HorizontalAlignment="Center"
-               VerticalAlignment="Center"/>
-        <Label Grid.Row="2"
-               Grid.Column="1"
-               Content="{Binding listMeat[1].price}"
-               FontSize="16"
-               HorizontalAlignment="Center"
-               VerticalAlignment="Center"/>
-        <Label Grid.Row="3"
-               Grid.Column="1"
-               Content="{Binding listMeat[2].price}"
-               FontSize="16"
-               HorizontalAlignment="Center"
-               VerticalAlignment="Center"/>
-        <Label Grid.Row="4"
-               Grid.Column="1"
-               Content="{Binding listMeat[3].price}"
-               FontSize="16"
-               HorizontalAlignment="Center"
-               VerticalAlignment="Center"/>
-        <Label Grid.Row="5"
-               Grid.Column="1"
-               Content="{Binding listMeat[4].price}"
-               FontSize="16"
-               HorizontalAlignment="Center"
-               VerticalAlignment="Center"/>
-        <Label Grid.Row="6"
-               Grid.Column="1"
-               Content="{Binding listMeat[5].price}"
-               FontSize="16"
-               HorizontalAlignment="Center"
-               VerticalAlignment="Center"/>
-        
-        <!--DKK-->
-        <Label Grid.Row="1"
-               Grid.Column="2"
-               Content="DKK"
-               FontSize="13"
-               HorizontalAlignment="Center"
-               VerticalAlignment="Center"/>
-        <Label Grid.Row="2"
-               Grid.Column="2"
-               Content="DKK"
-               FontSize="13"
-               HorizontalAlignment="Center"
-               VerticalAlignment="Center"/>
-        <Label Grid.Row="3"
-               Grid.Column="2"
-               Content="DKK"
-               FontSize="13"
-               HorizontalAlignment="Center"
-               VerticalAlignment="Center"/>
-        <Label Grid.Row="4"
-               Grid.Column="2"
-               Content="DKK"
-               FontSize="13"
-               HorizontalAlignment="Center"
-               VerticalAlignment="Center"/>
-        <Label Grid.Row="5"
-               Grid.Column="2"
-               Content="DKK"
-               FontSize="13"
-               HorizontalAlignment="Center"
-               VerticalAlignment="Center"/>
-        <Label Grid.Row="6"
-               Grid.Column="2"
-               Content="DKK"
-               FontSize="13"
-               HorizontalAlignment="Center"
-               VerticalAlignment="Center"/>
-        
-        <!--Ny Pris-->
         <Label x:Name="newPrice"
                Grid.Row="0"
                Grid.Column="3"
@@ -172,74 +52,86 @@
                FontWeight="Bold"
                HorizontalAlignment="Center"
                VerticalAlignment="Center"/>
-        <TextBox x:Name="newPriceGris"
-                 Grid.Row="1"
-                 Grid.Column="3"
-                 Text="{Binding editListMeat[0].price}"
-                 FontSize="16"
-                 TextAlignment="Center"
-                 HorizontalAlignment="Stretch"
-                 VerticalAlignment="Stretch"
-                 Margin="5,10,5,10"/>
-        <TextBox x:Name="newPriceKalv"
-                 Grid.Row="2"
-                 Grid.Column="3"
-                 Text="{Binding editListMeat[1].price}"
-                 FontSize="16"
-                 TextAlignment="Center"
-                 HorizontalAlignment="Stretch"
-                 VerticalAlignment="Stretch"
-                 Margin="5,10,5,10"/>
-        <TextBox x:Name="newPriceOkse"
-                 Grid.Row="3"
-                 Grid.Column="3"
-                 Text="{Binding editListMeat[2].price}"
-                 FontSize="16"
-                 TextAlignment="Center"
-                 HorizontalAlignment="Stretch"
-                 VerticalAlignment="Stretch"
-                 Margin="5,10,5,10"/>
-        <TextBox x:Name="newPriceKylling"
-                 Grid.Row="4"
-                 Grid.Column="3"
-                 Text="{Binding editListMeat[3].price}"
-                 FontSize="16"
-                 TextAlignment="Center"
-                 HorizontalAlignment="Stretch"
-                 VerticalAlignment="Stretch"
-                 Margin="5,10,5,10"/>
-        <TextBox x:Name="newPriceKalkun"
-                 Grid.Row="5"
-                 Grid.Column="3"
-                 Text="{Binding editListMeat[4].price}"
-                 FontSize="16"
-                 TextAlignment="Center"
-                 HorizontalAlignment="Stretch"
-                 VerticalAlignment="Stretch"
-                 Margin="5,10,5,10"/>
-        <TextBox x:Name="newPriceHest"
-                 Grid.Row="6"
-                 Grid.Column="3"
-                 Text="{Binding editListMeat[5].price}"
-                 FontSize="16"
-                 TextAlignment="Center"
-                 HorizontalAlignment="Stretch"
-                 VerticalAlignment="Stretch"
-                 Margin="5,10,5,10"/>
-
-        <!--Tilfør lager-->
         <Label x:Name="addStock"
                Grid.Row="0"
                Grid.Column="4"
-               Content="Tilfør lager"
+               Content="Tilfør lager i Kg."
                FontSize="12"
                FontWeight="Bold"
                HorizontalAlignment="Center"
                VerticalAlignment="Center"/>
+
+
+<!--Gris Meat-->
+        <Label Grid.Row="1"
+               Grid.Column="0"
+               Content="{Binding listMeat[0].typeOfMeat}"
+               FontSize="16"
+               HorizontalAlignment="Left"
+               VerticalAlignment="Center"
+               Margin="10,0,0,0"/>
+        <Label Grid.Row="1"
+               Grid.Column="1"
+               Content="{Binding listMeat[0].price}"
+               FontSize="16"
+               HorizontalAlignment="Center"
+               VerticalAlignment="Center"/>
+        <Label Grid.Row="1"
+               Grid.Column="2"
+               Content="DKK"
+               FontSize="13"
+               HorizontalAlignment="Center"
+               VerticalAlignment="Center"/>
+        <TextBox x:Name="newPriceGris"
+                 Grid.Row="1"
+                 Grid.Column="3"
+                 Text="{Binding editListMeat[0].strPrice, UpdateSourceTrigger=PropertyChanged}"
+                 FontSize="16"
+                 TextAlignment="Center"
+                 HorizontalAlignment="Stretch"
+                 VerticalAlignment="Stretch"
+                 Margin="5,10,5,10"/>
         <TextBox x:Name="addStockGris"
                  Grid.Row="1"
                  Grid.Column="4"
-                 Text="{Binding editListMeat[0].stock}"
+                 Text="{Binding editListMeat[0].strStock, UpdateSourceTrigger=PropertyChanged}"
+                 FontSize="16"
+                 TextAlignment="Center"
+                 HorizontalAlignment="Stretch"
+                 VerticalAlignment="Stretch"
+                 Margin="5,10,5,10"/>
+        <Button x:Name="buttonSaveGris"
+                Grid.Row="1"
+                Grid.Column="5"
+                Content="Gem"
+                Height="25"
+                Margin="2" 
+                Click="SaveGris"/>
+
+<!--Kalv Meat-->
+        <Label Grid.Row="2"
+               Grid.Column="0"
+               Content="{Binding listMeat[1].typeOfMeat}"
+               FontSize="16"
+               HorizontalAlignment="Left"
+               VerticalAlignment="Center"
+               Margin="10,0,0,0"/>
+        <Label Grid.Row="2"
+               Grid.Column="1"
+               Content="{Binding listMeat[1].price}"
+               FontSize="16"
+               HorizontalAlignment="Center"
+               VerticalAlignment="Center"/>
+        <Label Grid.Row="2"
+               Grid.Column="2"
+               Content="DKK"
+               FontSize="13"
+               HorizontalAlignment="Center"
+               VerticalAlignment="Center"/>
+        <TextBox x:Name="newPriceKalv"
+                 Grid.Row="2"
+                 Grid.Column="3"
+                 Text="{Binding editListMeat[1].strPrice, UpdateSourceTrigger=PropertyChanged}"
                  FontSize="16"
                  TextAlignment="Center"
                  HorizontalAlignment="Stretch"
@@ -248,7 +140,44 @@
         <TextBox x:Name="addStockKalv"
                  Grid.Row="2"
                  Grid.Column="4"
-                 Text="{Binding editListMeat[1].stock}"
+                 Text="{Binding editListMeat[1].strStock, UpdateSourceTrigger=PropertyChanged}"
+                 FontSize="16"
+                 TextAlignment="Center"
+                 HorizontalAlignment="Stretch"
+                 VerticalAlignment="Stretch"
+                 Margin="5,10,5,10"/>
+        <Button x:Name="buttonSaveKalv"
+                Grid.Row="2"
+                Grid.Column="5"
+                Content="Gem"
+                Height="25"
+                Margin="2" 
+                Click="SaveKalv"/>
+
+<!--Okse Meat-->
+        <Label Grid.Row="3"
+               Grid.Column="0"
+               Content="{Binding listMeat[2].typeOfMeat}"
+               FontSize="16"
+               HorizontalAlignment="Left"
+               VerticalAlignment="Center"
+               Margin="10,0,0,0"/>
+        <Label Grid.Row="3"
+               Grid.Column="1"
+               Content="{Binding listMeat[2].price}"
+               FontSize="16"
+               HorizontalAlignment="Center"
+               VerticalAlignment="Center"/>
+        <Label Grid.Row="3"
+               Grid.Column="2"
+               Content="DKK"
+               FontSize="13"
+               HorizontalAlignment="Center"
+               VerticalAlignment="Center"/>
+        <TextBox x:Name="newPriceOkse"
+                 Grid.Row="3"
+                 Grid.Column="3"
+                 Text="{Binding editListMeat[2].strPrice, UpdateSourceTrigger=PropertyChanged}"
                  FontSize="16"
                  TextAlignment="Center"
                  HorizontalAlignment="Stretch"
@@ -257,7 +186,44 @@
         <TextBox x:Name="addStockOkse"
                  Grid.Row="3"
                  Grid.Column="4"
-                 Text="{Binding editListMeat[2].stock}"
+                 Text="{Binding editListMeat[2].strStock, UpdateSourceTrigger=PropertyChanged}"
+                 FontSize="16"
+                 TextAlignment="Center"
+                 HorizontalAlignment="Stretch"
+                 VerticalAlignment="Stretch"
+                 Margin="5,10,5,10"/>
+        <Button x:Name="buttonSaveOkse"
+                Grid.Row="3"
+                Grid.Column="5"
+                Content="Gem"
+                Height="25"
+                Margin="2" 
+                Click="SaveOkse"/>
+
+<!--Kylling Meat-->
+        <Label Grid.Row="4"
+               Grid.Column="0"
+               Content="{Binding listMeat[3].typeOfMeat}"
+               FontSize="16"
+               HorizontalAlignment="Left"
+               VerticalAlignment="Center"
+               Margin="10,0,0,0"/>
+        <Label Grid.Row="4"
+               Grid.Column="1"
+               Content="{Binding listMeat[3].price}"
+               FontSize="16"
+               HorizontalAlignment="Center"
+               VerticalAlignment="Center"/>
+        <Label Grid.Row="4"
+               Grid.Column="2"
+               Content="DKK"
+               FontSize="13"
+               HorizontalAlignment="Center"
+               VerticalAlignment="Center"/>
+        <TextBox x:Name="newPriceKylling"
+                 Grid.Row="4"
+                 Grid.Column="3"
+                 Text="{Binding editListMeat[3].strPrice, UpdateSourceTrigger=PropertyChanged}"
                  FontSize="16"
                  TextAlignment="Center"
                  HorizontalAlignment="Stretch"
@@ -266,7 +232,44 @@
         <TextBox x:Name="addStockKylling"
                  Grid.Row="4"
                  Grid.Column="4"
-                 Text="{Binding editListMeat[3].stock}"
+                 Text="{Binding editListMeat[3].strStock, UpdateSourceTrigger=PropertyChanged}"
+                 FontSize="16"
+                 TextAlignment="Center"
+                 HorizontalAlignment="Stretch"
+                 VerticalAlignment="Stretch"
+                 Margin="5,10,5,10"/>
+        <Button x:Name="buttonSaveKylling"
+                Grid.Row="4"
+                Grid.Column="5"
+                Content="Gem"
+                Height="25"
+                Margin="2" 
+                Click="SaveKylling"/>
+
+<!--Kalkun Meat-->
+        <Label Grid.Row="5"
+               Grid.Column="0"
+               Content="{Binding listMeat[4].typeOfMeat}"
+               FontSize="16"
+               HorizontalAlignment="Left"
+               VerticalAlignment="Center"
+               Margin="10,0,0,0"/>
+        <Label Grid.Row="5"
+               Grid.Column="1"
+               Content="{Binding listMeat[4].price}"
+               FontSize="16"
+               HorizontalAlignment="Center"
+               VerticalAlignment="Center"/>
+        <Label Grid.Row="5"
+               Grid.Column="2"
+               Content="DKK"
+               FontSize="13"
+               HorizontalAlignment="Center"
+               VerticalAlignment="Center"/>
+        <TextBox x:Name="newPriceKalkun"
+                 Grid.Row="5"
+                 Grid.Column="3"
+                 Text="{Binding editListMeat[4].strPrice, UpdateSourceTrigger=PropertyChanged}"
                  FontSize="16"
                  TextAlignment="Center"
                  HorizontalAlignment="Stretch"
@@ -275,7 +278,44 @@
         <TextBox x:Name="addStockKalkun"
                  Grid.Row="5"
                  Grid.Column="4"
-                 Text="{Binding editListMeat[4].stock}"
+                 Text="{Binding editListMeat[4].strStock, UpdateSourceTrigger=PropertyChanged}"
+                 FontSize="16"
+                 TextAlignment="Center"
+                 HorizontalAlignment="Stretch"
+                 VerticalAlignment="Stretch"
+                 Margin="5,10,5,10"/>
+        <Button x:Name="buttonSaveKalkun"
+                Grid.Row="5"    
+                Grid.Column="6"
+                Content="Gem"
+                Height="25"
+                Margin="2" 
+                Click="SaveKalkun"/>
+
+<!--Hest Meat-->
+        <Label Grid.Row="6"
+               Grid.Column="0"
+               Content="{Binding listMeat[5].typeOfMeat}"
+               FontSize="16"
+               HorizontalAlignment="Left"
+               VerticalAlignment="Center"
+               Margin="10,0,0,0"/>
+        <Label Grid.Row="6"
+               Grid.Column="1"
+               Content="{Binding listMeat[5].price}"
+               FontSize="16"
+               HorizontalAlignment="Center"
+               VerticalAlignment="Center"/>
+        <Label Grid.Row="6"
+               Grid.Column="2"
+               Content="DKK"
+               FontSize="13"
+               HorizontalAlignment="Center"
+               VerticalAlignment="Center"/>
+        <TextBox x:Name="newPriceHest"
+                 Grid.Row="6"
+                 Grid.Column="3"
+                 Text="{Binding editListMeat[5].strPrice, UpdateSourceTrigger=PropertyChanged}"
                  FontSize="16"
                  TextAlignment="Center"
                  HorizontalAlignment="Stretch"
@@ -284,65 +324,28 @@
         <TextBox x:Name="addStockHest"
                  Grid.Row="6"
                  Grid.Column="4"
-                 Text="{Binding editListMeat[5].stock}"
+                 Text="{Binding editListMeat[5].strStock, UpdateSourceTrigger=PropertyChanged}"
                  FontSize="16"
                  TextAlignment="Center"
                  HorizontalAlignment="Stretch"
                  VerticalAlignment="Stretch"
                  Margin="5,10,5,10"/>
-        
-        <!--Gem Knapper-->
-        <Button x:Name="buttonSaveGris"
-            Grid.Row="1"
-            Grid.Column="5"
-            Content="Gem"
-            Height="25"
-            Margin="2" 
-            Click="SaveGris"/>
-        <Button x:Name="buttonSaveKalv"
-            Grid.Row="2"
-            Grid.Column="5"
-            Content="Gem"
-            Height="25"
-            Margin="2" 
-            Click="SaveKalv"/>
-        <Button x:Name="buttonSaveOkse"
-            Grid.Row="3"
-            Grid.Column="5"
-            Content="Gem"
-            Height="25"
-            Margin="2" 
-            Click="SaveOkse"/>
-        <Button x:Name="buttonSaveKylling"
-            Grid.Row="4"
-            Grid.Column="5"
-            Content="Gem"
-            Height="25"
-            Margin="2" 
-            Click="SaveKylling"/>
-        <Button x:Name="buttonSaveKalkun"
-            Grid.Row="5"
-            Grid.Column="6"
-            Content="Gem"
-            Height="25"
-            Margin="2" 
-            Click="SaveKalkun"/>
         <Button x:Name="buttonSaveHest"
-            Grid.Row="6"
-            Grid.Column="5"
-            Content="Gem"
-            Height="25"
-            Margin="2" 
-            Click="SaveHest"/>
-        
-        <!--Exit Knap-->
+                Grid.Row="6"
+                Grid.Column="5"
+                Content="Gem"
+                Height="25"
+                Margin="2" 
+                Click="SaveHest"/>
+
+<!--Exit button-->
         <Button x:Name="buttonExitUpdate"
-            Grid.Row="7"
-            Grid.Column="1"
-            Grid.ColumnSpan="4"
-            Content="EXIT UPDATE"
-            Margin="10,5" 
-            Click="buttonExitUpdate_Click"/>
+                Grid.Row="7"
+                Grid.Column="1"
+                Grid.ColumnSpan="4"
+                Content="EXIT UPDATE"
+                Margin="10,5" 
+                Click="buttonExitUpdate_Click"/>
         
     </Grid>
 </UserControl>

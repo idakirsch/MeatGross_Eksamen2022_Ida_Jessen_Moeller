@@ -46,7 +46,7 @@ namespace GUI.Usercontrols
         {
             BIZ.editOrNewCustomer = new ClassCustomer(BIZ.selectedCustomer);
 
-            // The customers country isn't correctly selected for whatever reason
+            // A: The customers country isn't correctly selected for whatever reason
             BIZ.editOrNewCustomer.country = BIZ.listCountry.Find(t => t.Id == BIZ.editOrNewCustomer.country.Id);
 
             homeGrid.Children.Add(UCEdit);

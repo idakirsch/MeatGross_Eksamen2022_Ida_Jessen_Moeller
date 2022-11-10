@@ -14,20 +14,21 @@ namespace Test
         // RandomCalc = Tabellen
         // DataAccessMethod.Sequential = Læser dataen sekventielt
         [DataSource("System.Data.SqlClient", @"Data Source=(localdb)\MSSQLLocalDB; 
-        Initial Catalog=DDUT2022; Integrated Security=True", "RandomCalc", DataAccessMethod.Sequential)]
+            Initial Catalog=MEatGrossDB; Integrated Security=True", "RandomCalc", DataAccessMethod.Sequential)]
         public void TestMethod1000Plus()
         {
-            // Arrange
+
+        // Arrange
             BIZ.tal1 = TestContext.DataRow["tal1"].ToString();
             // Vælger data fra kolonnen tal2 som string
             BIZ.tal2 = TestContext.DataRow["tal2"].ToString();
             double res = 0D;
             double expected = Convert.ToDouble(TestContext.DataRow["resPlus"]);
 
-            // Act
+        // Act
             res = BIZ.resPlus;
 
-            // Assert
+        // Assert
             Assert.AreEqual(expected, res, 0.000000001);
         }
     }

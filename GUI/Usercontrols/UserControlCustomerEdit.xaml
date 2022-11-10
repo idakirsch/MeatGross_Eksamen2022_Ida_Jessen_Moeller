@@ -25,6 +25,8 @@
             <ColumnDefinition Width="2*" />
             <ColumnDefinition Width="4*" />
         </Grid.ColumnDefinitions>
+
+<!--Top row with buttons-->
         <Button x:Name="buttonSaveCustomer"
             Grid.Row="0"
             Grid.Column="1"
@@ -41,8 +43,10 @@
             HorizontalAlignment="Right"
             Height="20"
             Margin="3"
-            VerticalAlignment="Top" Click="buttonExitCustomer_Click" />
+            VerticalAlignment="Top" 
+            Click="buttonExitCustomer_Click" />
 
+<!--Selected Customer-->
         <Label x:Name="labelCustomer"
             Grid.Row="0"
             Content="Vælg Kunde:"
@@ -60,104 +64,118 @@
                 DisplayMemberPath="companyName"
                 SelectedItem="{Binding selectedCustomer}" />
 
-        <TextBox Grid.Row="2"
-                Grid.Column="1"
-                Text="{Binding editOrNewCustomer.id}"
-                VerticalContentAlignment="Center"
-                Margin="5"
-                FontSize="16" />
-        <TextBox Grid.Row="3"
-                Grid.Column="1"
-                Text="{Binding editOrNewCustomer.companyName}"
-                VerticalContentAlignment="Center"
-                Margin="5"
-                FontSize="16" />
-        <TextBox Grid.Row="4"
-                Grid.Column="1"
-                Text="{Binding editOrNewCustomer.address}"
-                VerticalContentAlignment="Center"
-                Margin="5"
-                FontSize="16" />
-        <TextBox Grid.Row="5"
-                Grid.Column="1"
-                Text="{Binding editOrNewCustomer.zipCity}"
-                VerticalContentAlignment="Center"
-                Margin="5"
-                FontSize="16" />
-        <TextBox Grid.Row="6"
-                Grid.Column="1"
-                Text="{Binding editOrNewCustomer.phone}"
-                VerticalContentAlignment="Center"
-                Margin="5"
-                FontSize="16" />
-        <TextBox Grid.Row="7"
-                Grid.Column="1"
-                Text="{Binding editOrNewCustomer.mail}"
-                VerticalContentAlignment="Center"
-                Margin="5"
-                FontSize="16" />
-        <TextBox Grid.Row="8"
-                Grid.Column="1"
-                Text="{Binding editOrNewCustomer.contactName}"
-                VerticalContentAlignment="Center"
-                Margin="5"
-                FontSize="16" />
-        <ComboBox Grid.Row="9"
-                Grid.Column="1"
-                VerticalContentAlignment="Center"
-                Margin="5"
-                FontSize="16"
-                ItemsSource="{Binding listCountry}"
-                DisplayMemberPath="countryName"
-                SelectedItem="{Binding editOrNewCustomer.country}" />
-
+<!--Customer ID-->
         <Label x:Name="label1"
-            Content="Kunde ID:"
-            Grid.Row="2"
-            Grid.Column="0"
-            Margin="2"
-            VerticalContentAlignment="Top" />
+                Content="Kunde ID:"
+                Grid.Row="2"
+                Grid.Column="0"
+                Margin="2"
+                VerticalContentAlignment="Top" />
+        <TextBox Grid.Row="2"
+                 Grid.Column="1"
+                 Text="{Binding editOrNewCustomer.id, UpdateSourceTrigger=PropertyChanged}"
+                 VerticalContentAlignment="Center"
+                 Margin="5"
+                 FontSize="16" />
+
+<!--Company Name-->
         <Label x:Name="label2"
-            Content="Firma Navn:"
-            Grid.Row="3"
-            Grid.Column="0"
-            Margin="2"
-            VerticalContentAlignment="Center" />
+                Content="Firma Navn:"
+                Grid.Row="3"
+                Grid.Column="0"
+                Margin="2"
+                VerticalContentAlignment="Center" />
+        <TextBox Grid.Row="3"
+                 Grid.Column="1"
+                 Text="{Binding editOrNewCustomer.companyName, UpdateSourceTrigger=PropertyChanged}"
+                 VerticalContentAlignment="Center"
+                 Margin="5"
+                 FontSize="16" />
+
+<!--Company Address-->
         <Label x:Name="label3"
-            Content="Firma Adresse:"
-            Grid.Row="4"
-            Grid.Column="0"
-            Margin="2"
-            VerticalContentAlignment="Center" />
+                Content="Firma Adresse:"
+                Grid.Row="4"
+                Grid.Column="0"
+                Margin="2"
+                VerticalContentAlignment="Center" />
+        <TextBox Grid.Row="4"
+                 Grid.Column="1"
+                 Text="{Binding editOrNewCustomer.address, UpdateSourceTrigger=PropertyChanged}"
+                 VerticalContentAlignment="Center"
+                 Margin="5"
+                 FontSize="16" />
+
+<!--Postal Code and City-->
         <Label x:Name="label4"
-            Content="Postnr. og Bynavn:"
-            Grid.Row="5"
-            Grid.Column="0"
-            Margin="2"
-            VerticalContentAlignment="Center" />
+                Content="Postnr. og Bynavn:"
+                Grid.Row="5"
+                Grid.Column="0"
+                Margin="2"
+                VerticalContentAlignment="Center" />
+        <TextBox Grid.Row="5"
+                 Grid.Column="1"
+                 Text="{Binding editOrNewCustomer.zipCity, UpdateSourceTrigger=PropertyChanged}"
+                 VerticalContentAlignment="Center"
+                 Margin="5"
+                 FontSize="16" />
+
+<!--Phone number-->
         <Label x:Name="label5"
-            Content="Firma Telefon nr.:"
-            Grid.Row="6"
-            Grid.Column="0"
-            Margin="2"
-            VerticalContentAlignment="Center" />
+                Content="Firma Telefon nr.:"
+                Grid.Row="6"
+                Grid.Column="0"
+                Margin="2"
+                VerticalContentAlignment="Center" />
+        <TextBox Grid.Row="6"
+                 Grid.Column="1"
+                 Text="{Binding editOrNewCustomer.phone, UpdateSourceTrigger=PropertyChanged}"
+                 VerticalContentAlignment="Center"
+                 Margin="5"
+                 FontSize="16" />
+
+<!--Company mail-->
         <Label x:Name="label6"
-            Content="Firma Mail Adresse:"
-            Grid.Row="7"
-            Grid.Column="0"
-            Margin="2"
-            VerticalContentAlignment="Center" />
+                Content="Firma Mail Adresse:"
+                Grid.Row="7"
+                Grid.Column="0"
+                Margin="2"
+                VerticalContentAlignment="Center" />
+        <TextBox Grid.Row="7"
+                 Grid.Column="1"
+                 Text="{Binding editOrNewCustomer.mail, UpdateSourceTrigger=PropertyChanged}"
+                 VerticalContentAlignment="Center"
+                 Margin="5"
+                 FontSize="16" />
+
+<!--Contact Person-->
         <Label x:Name="label7"
-            Content="Firma Kontakt Person:"
-            Grid.Row="8"
-            Grid.Column="0"
-            Margin="2"
-            VerticalContentAlignment="Center" />
+                Content="Firma Kontakt Person:"
+                Grid.Row="8"
+                Grid.Column="0"
+                Margin="2"
+                VerticalContentAlignment="Center" />
+        <TextBox Grid.Row="8"
+                 Grid.Column="1"
+                 Text="{Binding editOrNewCustomer.contactName, UpdateSourceTrigger=PropertyChanged}"
+                 VerticalContentAlignment="Center"
+                 Margin="5"
+                 FontSize="16" />
+
+<!--Country-->
         <Label x:Name="label8"
-            Content="Land:"
-            Grid.Row="9"
-            Grid.Column="0"
-            Margin="2"
-            VerticalContentAlignment="Center" />
+                Content="Land:"
+                Grid.Row="9"
+                Grid.Column="0"
+                Margin="2"
+                VerticalContentAlignment="Center" />
+        <ComboBox Grid.Row="9"
+                 Grid.Column="1"
+                 VerticalContentAlignment="Center"
+                 Margin="5"
+                 FontSize="16"
+                 ItemsSource="{Binding listCountry}"
+                 DisplayMemberPath="countryName"
+                 SelectedItem="{Binding editOrNewCustomer.country, UpdateSourceTrigger=PropertyChanged}" />
     </Grid>
 </UserControl>

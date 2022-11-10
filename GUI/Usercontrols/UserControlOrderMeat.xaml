@@ -28,12 +28,7 @@
                 <ColumnDefinition Width="1*" />
             </Grid.ColumnDefinitions>
 
-            <Button x:Name="buttonEditMeat" Grid.Column="1"
-                    Grid.Row="0"
-                    Content="Opdater kødpriser og beholdnng"
-                    Margin="3,9"
-                    Click="buttonEditMeat_Click" />
-
+<!--Top Row with Button-->
             <Label x:Name="labelMeatType"
                    Content="Vælg kød:"
                    Grid.Row="0"
@@ -41,6 +36,13 @@
                    Height="29"
                    Margin="4"
                    VerticalAlignment="Bottom" />
+            <Button x:Name="buttonEditMeat" Grid.Column="1"
+                    Grid.Row="0"
+                    Content="Opdater kødpriser og beholdnng"
+                    Margin="3,9"
+                    Click="buttonEditMeat_Click" />
+
+<!--Select Meat Combobox-->
             <ComboBox x:Name="comboBoxMeatType"
                       Grid.Row="1"
                       Grid.Column="0"
@@ -53,28 +55,30 @@
                       SelectedValuePath="typeOfMeat"
                       DisplayMemberPath="typeOfMeat"
                       SelectedItem="{Binding order.orderMeat}" />
+            <Label x:Name="labelMeatTimestamp"
+                   Content="{Binding order.orderMeat.strTimeStamp, UpdateSourceTrigger=PropertyChanged}"
+                   Grid.Row="1"
+                   Grid.Column="1"
+                   Margin="2"
+                   VerticalAlignment="Stretch"
+                   FontSize="10" />
 
-
+<!--Price pr. kg-->
             <Label Content="Pris pr. kg.:"
                    Grid.Row="2"
                    Grid.Column="0"
                    Margin="24,2,24,2"
                    VerticalAlignment="Stretch"
                    FontSize="16" />
-            <Label x:Name="labelMeatTimestamp"
-                   Content="{Binding order.orderMeat.strTimeStamp}"
-                   Grid.Row="1"
-                   Grid.Column="1"
-                   Margin="2"
-                   VerticalAlignment="Stretch"
-                   FontSize="10" />
             <Label x:Name="labelMeatPrice"
-                   Content="{Binding order.orderMeat.price}"
+                   Content="{Binding order.orderMeat.price, UpdateSourceTrigger=PropertyChanged}"
                    Grid.Row="2"
                    Grid.Column="1"
                    Margin="24,2,24,2"
                    VerticalAlignment="Stretch"
                    FontSize="16" />
+
+<!--kg in Stock-->
             <Label Content="Antal kg. på lager:"
                    Grid.Row="3"
                    Grid.Column="0"
@@ -82,13 +86,14 @@
                    VerticalAlignment="Stretch"
                    FontSize="16" />
             <Label x:Name="labelMeatOnStock"
-                   Content="{Binding order.orderMeat.stock}"
+                   Content="{Binding order.orderMeat.stock, UpdateSourceTrigger=PropertyChanged}"
                    Grid.Row="3"
                    Grid.Column="1"
                    Margin="24,2,2,2"
                    VerticalAlignment="Stretch"
                    FontSize="16" />
 
+<!--kg Meat sold to Customer-->
             <Label x:Name="labelMeatForCustomer"
                    Content="Antal hele kg. til kunden:"
                    Grid.Row="4"
@@ -109,6 +114,7 @@
                      VerticalAlignment="Top"
                      FontSize="26" />
 
+<!--Cost for Customer-->
             <Label x:Name="labelPrice"
                    Content="Kundens kostpris:"
                    Grid.Row="4"
@@ -124,7 +130,7 @@
                     <ColumnDefinition Width="50" />
                 </Grid.ColumnDefinitions>
                 <Label x:Name="labelCostPrise"
-                       Content="{Binding order.priceDKK}"
+                       Content="{Binding order.priceDKK, UpdateSourceTrigger=PropertyChanged}"
                        Grid.Column="0"
                        FontFamily="System"
                        FontWeight="DemiBold"
@@ -141,28 +147,27 @@
                        Margin="3" />
             </Grid>
 
-
+<!--Cost for Customer in own valuta-->
             <Label Content="Pris i kundens valuta:"
                    Grid.Row="6"
                    Grid.Column="0"
                    Margin="24,2,24,2"
                    VerticalAlignment="Stretch"
                    FontSize="16" />
-
             <Grid Grid.Row="6"
                   Grid.Column="1">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="1*" />
                     <ColumnDefinition Width="50" />
                 </Grid.ColumnDefinitions>
-                <Label Content="{Binding order.priceValuta}"
+                <Label Content="{Binding order.priceValuta, UpdateSourceTrigger=PropertyChanged}"
                        Grid.Column="0"
                        Margin="2"
                        FontSize="14"
                        HorizontalContentAlignment="Right"
                        VerticalAlignment="Bottom" />
                 <Label Grid.Column="1"
-                       Content="{Binding order.orderCustomer.country.countryCode}"
+                       Content="{Binding order.orderCustomer.country.countryCode, UpdateSourceTrigger=PropertyChanged}"
                        FontFamily="System"
                        FontWeight="DemiBold"
                        Margin="2"
@@ -170,7 +175,7 @@
                        VerticalAlignment="Bottom" />
             </Grid>
 
-
+<!--Sell Button (MONEY BUTTON)-->
             <Button x:Name="buttonSellToCustomer"
                     Content="Sælg til kunden"
                     Grid.Row="7"

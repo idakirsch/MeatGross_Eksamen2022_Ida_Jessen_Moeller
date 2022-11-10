@@ -33,10 +33,12 @@ namespace GUI.Usercontrols
 
         private void buttonSaveCustomer_Click(object sender, RoutedEventArgs e)
         {
+            // B: If Customer doesn't exist, adds Customer to Database
             if (BIZ.editOrNewCustomer.id == 0)
             {
                 BIZ.SaveNewCustomer();
             }
+            // If Customer exists, updates Customer data in Database
             else
             {
                 BIZ.UpdateCustomer();
