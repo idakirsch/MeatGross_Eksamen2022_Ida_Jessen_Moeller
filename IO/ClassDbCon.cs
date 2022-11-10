@@ -20,7 +20,7 @@ namespace IO
         /// </summary>
         public ClassDbCon()
         {
-            _connectionString = @"Server=(localdb)\MSSQLLocalDB;Database=MeatGrossDB;Trusted_Connection=True;";
+            _connectionString = @"Server=(localdb)\MSSQLLocalDB;Database=MeatGross;Trusted_Connection=True;";
             con = new SqlConnection(_connectionString);
         }
 
