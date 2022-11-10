@@ -220,7 +220,7 @@ namespace IO
                                     "TypeOfMeat = @TypeOfMeat, " +
                                     "Stock = @Stock, " +
                                     "Price = @Price, " +
-                                    "PriceTimeStamp = PriceTimeStamp " +
+                                    "PriceTimeStamp = @PriceTimeStamp " +
                                 "WHERE " +
                                 "Id = @Id";
             return ExecuteMeatSqlQuery(inMeat, sqlQuery, true);
@@ -310,7 +310,7 @@ namespace IO
                                     "CountryName = @CountryName, " +
                                     "ValutaName = @ValutaName, " +
                                     "ValutaRate = @ValutaRate, " +
-                                    "UpdateTime = UpdateTime " +
+                                    "UpdateTime = @UpdateTime " +
                                 "WHERE " +
                                 "Id = @Id";
             return ExecuteCountrySqlQuery(inCountry, sqlQuery, true);
