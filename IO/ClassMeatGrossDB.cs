@@ -51,7 +51,7 @@ namespace IO
                 
                 using (DataTable dataTable = DbReturnDataTable(sqlQuery))
                 {
-                    // R: for hvert row i Customer tabellen og fylder en customer med dens data, den tager også en del data fra Country tabellen 
+                    // R: for hvert row i Customer tabellen og fylder en kunde med dens data, den tager også en del data fra Country tabellen 
                     foreach (DataRow row in dataTable.Rows)
                     {
                         ClassCustomer customer = new ClassCustomer();
@@ -69,7 +69,7 @@ namespace IO
                         customer.country.valutaName = row["ValutaName"].ToString();
                         customer.country.valutaRate = Convert.ToDouble(row["ValutaRate"]);
                         customer.country.updateTime = Convert.ToDateTime(row["UpdateTime"]);
-                        // R: tilføjer
+                        // R: tilføjer kunden 
                         listRes.Add(customer);
                     }
                 }
