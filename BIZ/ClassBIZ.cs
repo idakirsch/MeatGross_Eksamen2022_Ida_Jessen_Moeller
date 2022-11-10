@@ -189,6 +189,7 @@ namespace BIZ
             }
             catch (Exception ex)
             {
+                // A: Message, Window title, Buttons available, Icon
                 MessageBox.Show(ex.Message, "API Error", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
@@ -249,11 +250,13 @@ namespace BIZ
                 }
                 else
                 {
+                    // A: Message, Window title, Buttons available, Icon
                     MessageBox.Show("Mængden af kød, der sælges, skal være større end 0.", "Invalid input", MessageBoxButton.OK, MessageBoxImage.Warning);
                 }
             }
             else
             {
+                // A: Message, Window title, Buttons available, Icon
                 MessageBox.Show("Der skal vælges en kunde og en type kød.", "Invalid input", MessageBoxButton.OK, MessageBoxImage.Warning);
             }
         }
@@ -271,10 +274,11 @@ namespace BIZ
                 // A: Reflect changes in the program
                 orgMeat.price = newMeat.price;
                 orgMeat.stock += newMeat.stock;
-
                 // A: Reset the updated meat for visual feedback
                 newMeat.strPrice = "";
                 newMeat.strStock = "";
+                // A: Update the timestamp
+                orgMeat.priceTimeStamp = DateTime.Now;
 
                 // A: Update the meat in the database
                 CMGDB.UpdateMeatInDB(orgMeat);
@@ -284,6 +288,7 @@ namespace BIZ
             }
             else
 			{
+                // A: Message, Window title, Buttons available, Icon
                 MessageBox.Show("Begge input skal være større end 0.", "Invalid input", MessageBoxButton.OK, MessageBoxImage.Warning);
             }
 
