@@ -43,13 +43,21 @@ namespace GUI.Usercontrols
 
         private void buttonEditCustomer_Click(object sender, RoutedEventArgs e)
         {
-            BIZ.editOrNewCustomer = new ClassCustomer(BIZ.selectedCustomer);
+            if (BIZ.selectedCustomer.id != 0)
+            {
+                BIZ.editOrNewCustomer = new ClassCustomer(BIZ.selectedCustomer);
 
-            // A: The customers country isn't correctly selected for whatever reason
-            BIZ.editOrNewCustomer.country = BIZ.listCountry.Find(t => t.Id == BIZ.editOrNewCustomer.country.Id);
+                // A: The customers country isn't correctly selected for whatever reason
+                BIZ.editOrNewCustomer.country = BIZ.listCountry.Find(t => t.Id == BIZ.editOrNewCustomer.country.Id);
 
-            homeGrid.Children.Add(UCEdit);
-            BIZ.isEnabled = false;
+                homeGrid.Children.Add(UCEdit);
+                BIZ.isEnabled = false;
+            }
+            else
+            {
+                // A: Message, Window title, Buttons available, Icon
+                MessageBox.Show("Du skal vælge en kunde før du kan redigere.", "Manglende valg", MessageBoxButton.OK, MessageBoxImage.Warning);
+            }
         }
     }
 }

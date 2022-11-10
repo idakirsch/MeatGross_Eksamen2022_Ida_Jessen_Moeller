@@ -257,7 +257,7 @@ namespace BIZ
             else
             {
                 // A: Message, Window title, Buttons available, Icon
-                MessageBox.Show("Der skal vælges en kunde og en type kød.", "Invalid input", MessageBoxButton.OK, MessageBoxImage.Warning);
+                MessageBox.Show("Der skal vælges en kunde og en type kød.", "Manglende valg", MessageBoxButton.OK, MessageBoxImage.Warning);
             }
         }
         /// <summary>
