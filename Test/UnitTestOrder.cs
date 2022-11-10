@@ -5,7 +5,7 @@ using BIZ;
 namespace Test
 {
     [TestClass]
-    public class UnitTest1
+    public class UnitTestOrder
     {
         ClassBIZ BIZ = new ClassBIZ();
 
