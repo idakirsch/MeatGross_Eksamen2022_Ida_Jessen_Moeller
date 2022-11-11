@@ -18,7 +18,7 @@ namespace Repository
         private ClassCountry _country;
 
         /// <summary>
-        /// A: Default Constructor
+        /// Default Constructor
         /// </summary>
         public ClassCustomer()
         {
@@ -33,7 +33,7 @@ namespace Repository
         }
 
         /// <summary>
-        /// A: Constructor to make a dupplicate
+        /// Constructor to make a dupplicate
         /// </summary>
         public ClassCustomer(ClassCustomer inCustomer)
         {
